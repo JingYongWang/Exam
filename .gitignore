@@ -1,0 +1,3 @@
+# 註解，會被忽略。
+# 忽略node_modules/目錄下所有檔案
+node_modules/

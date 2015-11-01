@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>考試介面</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/carousel.css" rel="stylesheet">
+</head>
+
+<body onload="init()">
+    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">XX考場</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li id="tabback" class="tab"><a href="#" onclick="switchPanel('back')">返回選擇考場</a></li>
+                    <li id="tabstart" class="tab"><button type="button" onclick="list()">開始測驗</a></li>
+                    <li id="tabend" class="tab"><a href="#" onclick="switchPanel('end1')">結束測驗</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--分成3/6/3等分-->
+<div class="row">
+    <div class="col-lg-1" style="background-color:white;"></div>
+    <div class="col-lg-2" style="background-color:white;"></div>
+    <div class="col-lg-6" style="background-color">
+
+
+<div id="panelList" class="tab-pane panel">
+  </div>	
+<div id="panelEdit" class="tab-pane panel">
+    答案： <input id="editTitle" type="text" value="">
+	<input type="button" value="送出答案" onclick="pass()" class="btn btn-danger">
+    <br/>
+    <textarea id="editBody" class="form-control" style="width:100%; height:60%"></textarea>
+    <!--<button class="btn btn-success" onclick="save()">儲存</button>-->
+	答案： <input id="editTitle2" type="text" value="">
+	<input type="button" value="送出答案" onclick="pass()" class="btn btn-danger">
+    <br/>
+    <textarea id="editBody2" class="form-control" style="width:100%; height:60%"></textarea>
+  </div>
+<!--
+    <div class="jumbotron">
+    <h1> Bootstrap Tutorial</h1>      
+    <div id="panelList">
+    </div>
+    <ul class="pagination">
+    <li>
+      <a href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li><a href="#">6</a></li>
+    <li><a href="#">7</a></li>
+    <li><a href="#">8</a></li>
+    <li><a href="#">9</a></li>  
+    <li><a href="#">10</a></li> 
+    <li><a href="#">11</a></li> 
+    <li><a href="#">12</a></li> 
+    <li>
+      <a href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+
+  </div> 
+-->   
+</div>
+
+ <div class="col-lg-3" style="background-color:white;"></div>
+
+</div>
+</div>
+</div>
+
+
+
+    <script>
+    /*使用Jquery才有效果,分頁跟上面點選效果*/
+	/*
+    function switchPanel(name) {
+        $(".panel").css("display", "none");
+        $("#panel" + name).css("display", "block");
+        $(".tab").removeClass("active");
+        $("#tab" + name).addClass("active");
+    }
+	*/
+	function switchPanel(name) {
+     $('.panel').css( "display", "none");
+     $('#'+name).css( "display", "block");
+    }
+
+    function init() {
+    list();
+    }
+	
+	var noteID;
+
+    function edit(id) {
+     switchPanel('panelEdit');
+    	noteID = id;
+     $.ajax({
+       type: "GET",
+       url: "/note/"+id,
+       timeout: this.timeout,
+       data: {}
+     })
+      .done(function(data) {
+      var note = JSON.parse(data);
+      $('#editBody').val(note.q);
+	  $('#editBody2').val(note.q2);
+     });
+    }
+    
+	
+    function list() {
+    switchPanel('panelList');
+    $.ajax({
+    type: "GET",
+    url: "/list",
+    timeout: this.timeout,
+    data: {}
+    })
+    .done(function(data) {
+    var notes = JSON.parse(data);
+		$('#panelList').empty();
+		$('#panelList').append("<ol>");
+    for (var i in notes) {
+      $('#panelList').append('<li><a href="javascript:edit(\''+notes[i]._id+'\')">'+notes[i].exam+"</a></li>")
+    }
+		$('#panelList').append("</ol>");
+    });
+	}
+	
+    </script>
+    <script src="js/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/collapse.js"></script>
+    <script src="js/carousel.js"></script>
+</body>
+
+</html>

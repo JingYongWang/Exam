@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>My page</title>
+
+    <!-- CSS dependencies -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <!-- bootbox code -->
+    <!--Prompt Alert Confirm-->
+    <script type="text/javascript" src = "js/bootbox.js"></script>
+</head>
+<body>
+
+
+
+
+    <!-- set up the modal to start hidden and fade in and out -->
+
+
+<div id="myModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">提示訊息</h3>
+        <p><h4>學生登入成功</h4></p>
+      </div>
+      <!-- dialog body -->
+      <!--
+      <div class="modal-body">
+
+      </div>
+    -->
+      <!-- dialog buttons -->
+      <div class="modal-footer">
+      <button type="button" class="btn btn-primary">OK</button></div>
+    </div>
+  </div>
+</div>
+
+
+
+    <!-- JS dependencies -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src = "js/modal.js">
+
+    </script>
+    <!-- sometime later, probably inside your on load event callback -->
+    <script>
+        $("#myModal").on("show", function() {    // wire up the OK button to dismiss the modal when shown
+            $("#myModal a.btn").on("click", function(e) {
+                console.log("button pressed");   // just as an example...
+                $("#myModal").modal('hide');     // dismiss the dialog
+            });
+        });
+        $("#myModal").on("hide", function() {    // remove the event listeners when the dialog is dismissed
+            $("#myModal a.btn").off("click");
+        });
+
+        $("#myModal").on("hidden", function() {  // remove the actual elements from the DOM when fully hidden
+            $("#myModal").remove();
+        });
+
+        $("#myModal").modal({                    // wire up the actual modal functionality and show the dialog
+          "backdrop"  : "static",
+          "keyboard"  : true,
+          "show"      : true                     // ensure the modal is shown immediately
+        });
+
+    </script>
+
+</body>
+</html>

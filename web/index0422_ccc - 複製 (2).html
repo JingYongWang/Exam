@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>考試介面</title>
+	<link href = "css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/carousel.css" rel="stylesheet">
+	<style>
+    #header {
+        background-color: gray;
+        color: white;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    #nav {
+        line-height: 30px;
+        height: 500px;
+        width: 800px;
+        float: left;
+        padding: 20px;
+    }
+    
+    #section {
+        height: 500px;
+        width: 350px;
+        float: left;
+        padding: 20px;
+    }
+    
+    #footer {
+        background-color: black;
+        color: white;
+        clear: both;
+        text-align: center;
+        padding: 10px;
+    }
+    </style>
+</head>
+<body onload="init()">
+    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">考試系統</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li id="tabback" class="tab"><a id="panelUser"></a></li>
+                    <li id="tabstart" class="tab"><a id="panelLogout" type="button" onclick="logout()"></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--分成3/6/3等分-->
+<div id="panelRegister" class="tab-pane panel">
+    <div id="header">
+        <h1>考試系統</h1>
+    </div>
+    <div id="nav">
+        <h2 class="text-info"><strong>使用說明</strong></h2>
+        <h3 class="text-info"><strong>使用者要先登入系統（判斷是否為出題者）</br>選擇考試內容（考場ＯＲ練習）</br>考試開始可選擇跳過ＯＲ做記號在回顧這些不確定之題目</br>考試結束 查看錯誤之題目</br>成績計算</strong></h3>
+            
+</div>
+<div id="section">
+<div  id="panelLogin" class="site-wrapper">
+            <div class="site-wrapper-inner">
+                <div class="cover-container">
+                    <form class="form-horizontal">
+                    <h1> 註冊</h1>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">姓名</label>
+                            <div class="col-sm-10">
+                                <input id="registerUser" type="email" class="form-control" id="inputEmail3" placeholder="Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">學號</label>
+                            <div class="col-sm-10">
+                                <input id="registerPassword" type="password" class="form-control" id="inputPassword3" placeholder="Number">
+                            </div>
+                        </div>
+						<div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">(student
+							                                                        /teacher)</label>
+                            <div class="col-sm-10">
+                                <input id="registerJob" type="email" class="form-control" id="inputEmail3" placeholder="Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> Remember me
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                            <p class="text-center">
+                                <button type="button" class="btn btn-default" onclick="register()">註冊</button>
+								<button type="button" class="btn btn-default" onclick="returnHome()">返回</button></p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+  </div>
+</div>
+<div id="panelHome" class="tab-pane panel">
+    <div id="header">
+        <h1>考試系統</h1>
+    </div>
+    <div id="nav">
+        <h2 class="text-info"><strong>使用說明</strong></h2>
+        <h3 class="text-info"><strong>使用者要先登入系統（判斷是否為出題者）</br>選擇考試內容（考場ＯＲ練習）</br>考試開始可選擇跳過ＯＲ做記號在回顧這些不確定之題目</br>考試結束 查看錯誤之題目</br>成績計算</strong></h3>
+            
+</div>
+<div id="section">
+<div  id="panelLogin" class="site-wrapper">
+            <div class="site-wrapper-inner">
+                <div class="cover-container">
+                    <form class="form-horizontal">
+                    <h1> 登入</h1>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">姓名</label>
+                            <div class="col-sm-10">
+                                <input id="loginUser" type="email" class="form-control" id="inputEmail3" placeholder="Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">學號</label>
+                            <div class="col-sm-10">
+                                <input id="loginPassword" type="password" class="form-control" id="inputPassword3" placeholder="Number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> Remember me
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                            <p class="text-center">
+                                <button type="button" class="btn btn-default" onclick="login()">登入</button>
+								<button type="button" class="btn btn-default" onclick="jump()">註冊</button></p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+  </div>
+</div>
+<div id="panelEdit" class="tab-pane panel">
+<form class="form-horizontal">
+<textarea id="jsonText" class="form-control" rows="26">  
+    {"exam" : "math", "qaList" :    [ 
+                                               { "q" : "1+2?(1)4(2)3(3)4(4)5", 
+                                                 "a" : "2" },
+                                               { "q" : "3+4?(1)5(2)6(3)7(4)8",
+                                                 "a" : "3" }  
+                                               ]}
+    </textarea>
+  <table style="float:right; line-height: 30px; font-size:13px; padding-right: 5px;">
+  <tr>
+  <td>
+    <button type="button" class="btn btn-primary" onclick="check()">check</button>
+	<button type="button" class="btn btn-success" onclick="send()">送出</button>
+
+  </td>
+  </tr>
+  </table>
+ </form>
+</div>
+
+<div id="panelList" class="tab-pane panel">
+  </div>
+ 
+<div id="panelResult" class="tab-pane panel">
+</div>
+
+<div id="panelHistory" class="tab-pane panel">
+</div>
+
+<div id="panelHistoryreport" class="tab-pane panel">
+</div>
+
+<div id="panelQuestion" class="tab-pane panel">
+</div>
+
+<div id="panelHistoryquestion" class="tab-pane panel">
+</div>
+
+  <div id="panelExam" class="container panel">
+    <div class="page-header">
+            <h1>開始測驗 <span style="color:#336699" id="countMsg"></span></h1>
+    </div>
+    答案： <input id="editTitle" type="text" value="">
+	<input type="button" value="送出答案" onclick="pass()" class="btn btn-danger">
+    <br/>
+	 <p class="lead">
+            <form action="javascript:pass()" class="lead">
+                <!-- //當提交表單時，表單數據會提交到名為"javascript:pass()" 的頁面：-->
+                <span id="editBody"></span>
+                <!-- 題目-->
+
+
+
+
+
+
+
+            </form>
+        </p>
+		
+    <!--<textarea id="editBody" class="form-control" style="width:100%; height:60%"></textarea>-->
+  </div>
+<!--
+    <div class="jumbotron">
+    <h1> Bootstrap Tutorial</h1>      
+    <div id="panelList">
+    </div>
+    <ul class="pagination">
+    <li>
+      <a href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li><a href="#">6</a></li>
+    <li><a href="#">7</a></li>
+    <li><a href="#">8</a></li>
+    <li><a href="#">9</a></li>  
+    <li><a href="#">10</a></li> 
+    <li><a href="#">11</a></li> 
+    <li><a href="#">12</a></li> 
+    <li>
+      <a href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+
+  </div> 
+-->   
+
+
+
+    <script>
+    /*使用Jquery才有效果,分頁跟上面點選效果*/
+	/*
+    function switchPanel(name) {
+        $(".panel").css("display", "none");
+        $("#panel" + name).css("display", "block");
+        $(".tab").removeClass("active");
+        $("#tab" + name).addClass("active");
+    }
+	*/
+	function switchPanel(name) {
+     $('.panel').css( "display", "none");
+     $('#'+name).css( "display", "block");
+    }
+	
+	function jump() {
+	registerUser.value = "";
+	registerPassword.value = "";
+	registerJob.value = "";
+	switchPanel('panelRegister');
+	}
+    
+    function init() {
+    switchPanel('panelHome');
+    }
+	
+	var noteID;
+    var qi;
+    function exam(examIdx) {
+	 ei = examIdx;
+	 qi=0;
+     switchPanel('panelExam');
+	 $('#editBody').html(exams[ei].qaList[qi].q);
+    }
+	
+	var examId;
+	var ei;
+    
+	function pass() {
+	  exams[ei].qaList[qi].userAnswer =  $('#editTitle').val();
+	  qi++;
+      if(qi == exams[ei].qaList.length)
+      {
+	     switchPanel('panelResult');
+		 result();
+	  }	else {
+	    $('#editBody').html(exams[ei].qaList[qi].q);
+	  }
+	  editTitle.value = "";
+	}
+	
+	var exams; // 考場:包含考試名稱與試題內容
+	var userExam = { answer:[] }; // 使用者這次考試的答題內容
+	
+    function list() {
+    switchPanel('panelList');
+    $.ajax({
+    type: "GET",
+    url: "/list",
+    timeout: this.timeout,
+    data: {}
+    })
+    .done(function(data) {
+    exams = JSON.parse(data);
+		$('#panelList').empty();
+		$('#panelList').append("<h1>考場選擇<h1>");
+		$('#panelList').append("<ol>");
+    for (ei in exams) {
+      $('#panelList').append('<li class=""><a href="javascript:exam('+ei+')">'+exams[ei].exam+"</a></li>")
+    }
+		$('#panelList').append("</ol>");
+    });
+	}
+    
+
+    function result(){  //考試系統的答案檢查，考試結果的報表
+        var correct = 0;
+        var wrong = 0;
+        var onescore;  //一題分數
+		$('#panelResult').empty();
+		$('#panelResult').append("<h1>報表</h1>");
+        $('#panelResult').append("<ol>");
+        for(i =0; i<exams[ei].qaList.length; i++)
+        {
+            if(exams[ei].qaList[i].userAnswer == exams[ei].qaList[i].a)
+                {
+                    $('#panelResult').append("<li>你的答案："+exams[ei].qaList[i].userAnswer+"; 答題結果：你答對了！</li>");
+                    correct++;
+					$('#panelResult').append('<button type="button" class="btn btn-default" onclick="showQuestion('+i+')">看本題考題</button>');
+                }else{
+                    $('#panelResult').append("<li>你的答案："+exams[ei].qaList[i].userAnswer+"; 答題結果：你答錯了！, 正確答案："+exams[ei].qaList[i].a+"</li>");
+                    wrong++;
+					$('#panelResult').append('<button type="button" class="btn btn-default" onclick="showQuestion('+i+')">看本題考題</button>');
+                }
+        }
+        $('#panelResult').append("</ol>");
+		$('#panelResult').append("</br>");
+        if(correct+wrong == exams[ei].qaList.length)
+        {
+           onescore = 100/exams[ei].qaList.length;
+           $('#panelResult').append("你答對"+correct+"題,答錯"+wrong+"題,總分："+correct*onescore+"分");
+        }
+		$('#panelResult').append("<br/>")
+		$('#panelResult').append("<button type='button' class='btn btn-default' onclick='report()'>送出報表</button>");
+		$('#panelResult').append("<button type='button' class='btn btn-default' onclick='reset()'>重新考試</button>");
+    }
+	
+	//這是管理者
+	function check()
+	 {
+	   var jText = $('#jsonText').val();
+	   var jobj = JSON.parse(jText);    
+       if (typeof jobj === undefined)
+       	   alert("error"); //未完成!!!
+	   else
+	       alert("correct");
+	   
+	   console.log("jobj="+JSON.stringify(jobj));
+	 }
+
+	 function send()
+	 {
+	   var jText = $('#jsonText').val();
+	   var jobj =  JSON.parse(jText);
+       var jText2 = $('#examName').val();
+	   var jobj2 = jText2;	   
+	   $.ajax({
+       type: "POST",
+       url: "/db/main/file",
+       timeout: this.timeout,
+       data: { obj:JSON.stringify(jobj) , obj2:JSON.stringify(jobj2)},  //變成字串
+       })
+      .done(function(data) {
+      alert( "送出成功!");
+      })
+      .fail(function() {
+       alert( "送出失敗！" );
+     });
+
+	 }
+	//登入
+	var Message;
+	
+	function login() {
+    $.ajax({
+    type: "POST",
+    url: "/password",
+    timeout: 800000,
+    data: {user:$('#loginUser').val(), password:$('#loginPassword').val() },
+    })
+    .done(function(data) {
+	  var user = JSON.parse(data);
+      //alert("user="+data);	  
+	  if (user.type === "student")
+	  {
+	    localStorage.wd_login = "true";
+		alert("學生登入成功!");
+		history();
+        $('#panelUser').append($('#loginUser').val());	
+		$('#panelLogout').append("登出");
+	  }else if(user.type === "teacher"){ 
+        localStorage.wd_login = "true";
+        alert("導師登入成功!");
+        switchPanel('panelEdit');
+        $('#panelUser').append($('#loginUser').val());	
+        $('#panelLogout').append("登出");		
+      }	  
+//	  Message = data;
+//	  alert("Message="+Message);
+/*	  
+	  if(Message == "學生登入成功")
+	  {
+	    localStorage.wd_login = "true";
+        alert( "學生登入成功!");
+	    list();
+	  }else if(Message == "導師登入成功"){
+	    localStorage.wd_login = "true";
+        alert( "導師登入成功!");
+	    switchPanel('panelEdit');
+	  }
+	  else
+	    alert("fail!");
+*/	
+      })  
+      .fail(function() {
+	   localStorage.wd_login = "false";
+       alert( "登入失敗！" );
+	   switchPanel('panelHome');
+     });
+	}
+	
+	function logout() {
+      $.ajax({
+      type: "POST",
+      url: "/logout",
+      timeout: this.timeout,
+      data: {},
+    })
+    .done(function(data) {
+      localStorage.wd_login = "false";
+      alert( "登出成功!");
+	  loginUser.value = "";
+	  loginPassword.value = "";
+	  $('#panelUser').empty();
+	  $('#panelLogout').empty();
+	  /*
+	  for(i =0; i<exams[0].qaList.length; i++)
+	  {
+	  exams[0].qaList[i].userAnswer = "";
+	  }
+	  */
+      switchPanel('panelHome');
+    })
+    .fail(function() {
+      alert( "登出失敗！" );
+     });
+    }
+
+	function report(){
+	  var userInput = $('#loginUser').val();
+	  var rt = exams[ei];
+	  $.ajax({
+      type: "POST",
+      url: "/report",
+      timeout: 800000,
+	  data: {ui : userInput , report : rt},
+	})
+	.done(function(data) {
+	  alert( "報表送出成功！" );
+	 })
+	.fail(function() {
+      alert( "報表送出成功！" );
+     });
+	}
+	
+	var his;
+	var ra;
+	
+	function show(reportAmount){
+	  ra = reportAmount;
+	  switchPanel('panelHistoryreport');
+	  $('#panelHistoryreport').empty();
+	  $('#panelHistoryreport').append("<h1>歷史報表</h1>");
+	  $('#panelHistoryreport').append("<ol>");
+	  var correct = 0;
+      var wrong = 0;
+	  for(i =0; i<his[ra].report.qaList.length; i++)
+        {
+            if(his[ra].report.qaList[i].userAnswer == his[ra].report.qaList[i].a)
+                {
+                    $('#panelHistoryreport').append("<li>你的答案："+his[ra].report.qaList[i].userAnswer+"; 答題結果：你答對了！</li>");
+                    correct++;
+					$('#panelHistoryreport').append('<button type="button" class="btn btn-default" onclick="showHistoryquestion('+i+')">看本題考題</button>');
+                }else{
+                    $('#panelHistoryreport').append("<li>你的答案："+his[ra].report.qaList[i].userAnswer+"; 答題結果：你答錯了！, 正確答案："+his[ra].report.qaList[i].a+"</li>");
+                    wrong++;
+					$('#panelHistoryreport').append('<button type="button" class="btn btn-default" onclick="showHistoryquestion('+i+')">看本題考題</button>');
+                }
+        }
+        $('#panelHistoryreport').append("</ol>");
+		$('#panelHistoryreport').append("</br>");
+        if(correct+wrong == his[ra].report.qaList.length)
+        {
+           onescore = 100/his[ra].report.qaList.length;
+           $('#panelHistoryreport').append("你答對"+correct+"題,答錯"+wrong+"題,總分："+correct*onescore+"分");
+        }
+		$('#panelHistoryreport').append("<br/>");
+		$('#panelHistoryreport').append("<button type='button' class='btn btn-default' onclick='historyShow()'>返回歷史考場</button>");
+	}
+	
+
+	
+	function historyShow(){
+	  switchPanel('panelHistory');
+	  $('#panelHistory').empty();
+	  $('#panelHistory').append("<h1>歷史紀錄</h1>");
+      $('#panelHistory').append("<button type='button' class='btn btn-default' onclick='list()'>開始考試</button>");
+	  $('#panelHistory').append("<ol>");
+	  for (var i in his) {
+      $('#panelHistory').append('<li class=""><a href="javascript:show('+i+')">'+his[i].report.exam+"</a></li>")
+      }
+	  $('#panelHistory').append("</ol>");
+	}
+	
+	function history(){
+	  var userhistory = $('#loginUser').val();
+	  $.ajax({
+      type: "POST",
+      url: "/history",
+      timeout: 800000,
+	  data: {userhistory : userhistory},
+	})
+	.done(function(data) {
+	  alert( "收到歷史成績！" );
+	  his = JSON.parse(data);
+	  historyShow();
+	  })
+	  .fail(function() {
+      alert( "沒有收到！" );
+     });
+	}
+	
+	function register(){
+	  var registerUser = $('#registerUser').val();
+	  var registerPassword = $('#registerPassword').val();
+	  var registerJob = $('#registerJob').val();
+	  $.ajax({
+      type: "POST",
+      url: "/register",
+      timeout: 800000,
+	  data: {registerUser : registerUser , registerPassword : registerPassword, registerJob : registerJob},
+	})
+	.done(function(data) {
+	  alert( "註冊成功！" );
+	  switchPanel('panelHome');
+	  })
+	  .fail(function() {
+      alert( "註冊失敗！" );
+     });
+	}
+	
+    function reset() {
+	   exam();
+    }
+	
+	function returnHome() {
+	   switchPanel('panelHome');
+	}
+	
+	function returnResult() {
+	   switchPanel('panelResult');
+	}
+	
+	function returnHistoryreport() {
+	   switchPanel('panelHistoryreport');
+	}
+	
+	function showQuestion(qai) {
+	    var i = qai;
+	    switchPanel('panelQuestion');
+	    $('#panelQuestion').empty();
+		$('#panelQuestion').append("<h1>題目</h1>");
+        $('#panelQuestion').append("<ol>");
+		$('#panelQuestion').append("<li>題目："+exams[ei].qaList[i].q);
+		$('#panelQuestion').append("</li>");
+	    $('#panelQuestion').append("</ol>");
+	    $('#panelQuestion').append('<button type="button" class="btn btn-default" onclick="returnResult()">返回報表</button>');
+	}
+	
+	function showHistoryquestion(hqai){
+	    var i = hqai;
+	    switchPanel('panelHistoryquestion');
+	    $('#panelHistoryquestion').empty();
+		$('#panelHistoryquestion').append("<h1>歷史題目</h1>");
+        $('#panelHistoryquestion').append("<ol>");
+        $('#panelHistoryquestion').append("<li>題目："+his[ra].report.qaList[i].q);
+		$('#panelHistoryquestion').append("</li>");
+	    $('#panelHistoryquestion').append("</ol>");
+	    $('#panelHistoryquestion').append('<button type="button" class="btn btn-default" onclick="returnHistoryreport()">返回歷史報表</button>');
+	}
+    </script>
+    <script src="js/jquery.min.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/collapse.js"></script>
+    <script src="js/carousel.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+{passwordList :[{ user:"123@yahoo.com.tw", password:"110110606" },{ user:"321@yahoo.com.tw", password:"110110660" }] }
+
+{ "_id" : ObjectId("5565329682b15ac7a3021692"), "passwordList" : [      {
+"user" : "123@yahoo.com.tw",    "password" : "110110606" },     {       "user" :
+ "321@yahoo.com.tw",    "password" : "110110660" } ] }
+ 
+ {"user" : "602@yahoo.com.tw", "password" : "110110602", "type" : "student" }
+ {"user" : "123@yahoo.com.tw", "password" : "110110606", "type" : "student" }
+ {"user" : "321@yahoo.com.tw", "password" : "110110660", "type" : "teacher" }
+ 
+ { "exam" : "數學加減法", "qaList": [     {       "q" : "1+2?(1)4(2)3(3)4(4)5",   "a" : "2" },    {       "q" : "3
++4?(1)5(2)6(3)7(4)8",   "a" : "3" } ] }
+ 
