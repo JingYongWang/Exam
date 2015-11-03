@@ -1,0 +1,423 @@
+show dbs
+show collections
+db.exabdb.find()
+db.password.find()
+db.examdb.insert()
+{ "exam" : "EnglishTest" , "qaList" :
+[
+  {
+    "q" : "'hello world' has __ word?",
+    "optionA" : "3",
+    "optionB" : "5",
+    "optionC" : "7",
+    "optionD" : "10",
+    "corrAns" : "10"
+  },
+  {
+    "q" : "'Handsome boy' has __ word?",
+    "optionA" : "15",
+    "optionB" : "10",
+    "optionC" : "11",
+    "optionD" : "12",
+    "corrAns" : "11"
+  }
+]
+,
+  "time" : "30"
+}
+
+
+//目前題目格式
+//db.exam
+{
+    "exam": "math",
+    "qaList": [{
+        q: "1+2?(1)4(2)3(3)4(4)5",
+        a: "2"
+    }, {
+        q: "3+4?(1)5(2)6(3)7(4)8",
+        a: "3"
+    }]
+}
+//101
+
+
+{"exam" : "數學加法", "qaList" :
+[
+{ q: "1+2=?(1)4(2)3(3)4(4)5", a: "2"},
+{ q: "3+8=?(1)7(2)12(3)9(4)11", a:"4"}
+]
+}
+
+
+
+
+db.examdb.insert({"exam" : "數學加法", "qaList" : [{ q: "1+2=?(1)4(2)3(3)4(4)5", a: "2"},{ q: "3+8=?(1)7(2)12(3)9(4)11", a:"4"}] })
+db.examdb.insert({"exam" : "數學乘法", "qaList" : [{ q: "3*4=?(1)28(2)6(3)12(4)18", a: "3"},{ q: "9*7=?(1)63(2)45(3)54(4)27", a:"1"}] })
+
+db.examdb.insert({"exam" : "數學乘法", "qaList" : [{ q: "The ending of the movie did not come as a _____ to John because he had already read the novel that the movie was based on.", a: "3"},{ q: "9*7=?(1)63(2)45(3)54(4)27", a:"1"}] })
+
+
+//
+
+
+{ "exam" : "數學加減法", "qaList": [     {       "q" : "1+2?(1)4(2)3(3)4(4)5",   "a" : "2" },    {       "q" : "3
++4?(1)5(2)6(3)7(4)8",   "a" : "3" } ] }
+
+//db.password
+{
+    passwordList: [{
+        user: "123@yahoo.com.tw",
+        password: "110110606"
+    }, ],
+    passwordEdit: [{
+        edit: "321@yahoo.com.tw",
+        password: "110110660"
+    }]
+}
+
+//新的db.password
+
+{
+    "user": "602@yahoo.com.tw",
+    "password": "110110602",
+    "type": "student"
+} {
+    "user": "123@yahoo.com.tw",
+    "password": "110110606",
+    "type": "student"
+} {
+    "user": "321@yahoo.com.tw",
+    "password": "110110660",
+    "type": "teacher"
+}
+
+//db.reportdb
+
+
+
+//報表 答案正確的
+$('#panelResult').append(
+	"<div class='table-responsive'>
+		<table class='table table-striped'>
+			<thead>
+				<tr>
+					<th>題目</th>
+					<th>你的答案</th>
+					<th>答題結果</th>
+					<th>正確答案</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr>
+					<td><button type='button' class='btn btn-default' onclick='showQuestion()'><a href='javascript:showQuestion("+i+")'>看本題考題</a></button></td>
+					<td>" + exams[ei].qaList[i].userAnswer + "</td>
+					<td>你答對了！</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>");
+
+//報表  答案錯誤
+
+$('#panelResult').append(
+	"<div class='table-responsive'>
+		<table class='table table-striped'>
+			<thead>
+				<tr>
+					<th>題目</th>
+					<th>你的答案</th>
+					<th>答題結果</th>
+					<th>正確答案</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr>
+					<td>" + notes[0].qaList[i].q + "</td>
+					<td>" + notes[0].qaList[i].userAnswer + "</td>
+					<td>你答錯了！</td>
+					<td>"+ notes[0].qaList[i].a +"</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>");
+
+//History 報表 答案正確
+$('#panelHistory').append
+("<li>題目："+his[0].report[0].qaList[i].q+
+	";你的答案："+his[0].report[0].qaList[i].userAnswer+";
+	答題結果：你答對了！</li>");
+
+$('#panelHistory').append(
+	"<div class='table-responsive'>
+		<table class='table table-striped'>
+			<thead>
+				<tr>
+					<th>題目</th>
+					<th>你的答案</th>
+					<th>答題結果</th>
+					<th>正確答案</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr>
+					<td>" +his[0].report[0].qaList[i].q+ "</td>
+					<td>" +his[0].report[0].qaList[i].userAnswer+ "</td>
+					<td>你答對了！</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>");
+
+
+
+
+
+//History 報表 答案錯誤
+ $('#panelHistory').append
+ ("<li>題目："+his[0].report[0].qaList[i].q+
+ 	";你的答案："+his[0].report[0].qaList[i].userAnswer+";
+ 	答題結果：你答錯了！, 正確答案："+his[0].report[0].qaList[i].a+"</li>");
+
+ $('#panelHistory').append(
+	"<div class='table-responsive'>
+		<table class='table table-striped'>
+			<thead>
+				<tr>
+					<th>題目</th>
+					<th>你的答案</th>
+					<th>答題結果</th>
+					<th>正確答案</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr>
+					<td>" +his[0].report[0].qaList[i].q+ "</td>
+					<td>" +his[0].report[0].qaList[i].userAnswer+ "</td>
+					<td>你答錯了！</td>
+					<td>"+his[0].report[0].qaList[i].a+"</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>");
+
+
+<button type='button' class='btn btn-default' onclick='showHistoryquestion()'><a href='javascript:showHistoryquestion("+i+")'>看本題考題</a></button>
+
+
+ $('#panelHistory').append("<div class='table-responsive'><table class='table table-striped'><thead><tr><th>題目</th><th>你的答案</th><th>答題結果</th><th>正確答案</th></tr></thead><tbody><tr><td>" +his[0].report[0].qaList[i].q+ "</td><td>" +his[0].report[0].qaList[i].userAnswer+ "</td><td>你答對了！</td></tr></tbody></table></div>");
+
+
+ $('#panelHistory').append("<div class='table-responsive'><table class='table table-striped'><thead><tr><th>題目</th><th>你的答案</th><th>答題結果</th><th>正確答案</th></tr></thead><tbody><tr><td>" +his[0].report[0].qaList[i].q+ "</td><td>" +his[0].report[0].qaList[i].userAnswer+ "</td><td>你答錯了！</td><td>"+his[0].report[0].qaList[i].a+"</td></tr></tbody></table></div>");
+
+
+
+db.examdb.insert({"exam" : "104學測英文" , "qaList" :
+[
+
+{ "q" : "Nowadays many companies adopt a ______ work schedule which allows their employees to decide when to arrive at work—from as early as 6 a.m. to as late as 11 a.m.(1) relative (2) severe (3) primitive (4) flexible", "a" : "4"},
+{ "q" : "To teach children right from wrong, some parents will ______ their children when they behave well and punish them when they misbehave.(1) settle (2) declare (3) reward (4) neglect", "a" : "3"},
+{ "q" : "To stick to a tight budget, Robert bought a more ______ LE4 TV instead of a fancy, expensive 34 TV.(1) technical (2) significant (3) affordable (4) expressive","a" : "3"},
+{ "q" : "4avid’s new book made it to the best-seller list because of its beautiful ______ and amusing stories.(1) operations (2) illustrations (3) engagements (4) accomplishments ","a" : "2"},
+{ "q" : "The airport was closed because of the snowstorm, and our ______ for Paris had to be delayed until the following day.(1) movement (2) registration (3) tendency (4) departure", "a" : "4"},
+{ "q" : "The moment the students felt the earthquake, they ran ______ out of the classroom to an open area outside.(1) swiftly (2) nearly (3) loosely (4) formally", "a" : "1"},
+{ "q" : "The ______ capacity of this elevator is 400 kilograms. For safety reasons, it shouldn’t be overloaded.(1) delicate (2) automatic (3) essential (4) maximum", "a" : "4"},
+{ "q" : "1n open display of ______ behavior between men and women, such as hugging and kissing, is not allowed in some conservative societies.(1) intimate (2) ashamed (3) earnest (4) urgent", "a" : "1"},
+{ "q" : "When taking medicine, we should read the instructions on the ______ carefully because they provide important information such as how and when to take it.(1) medals (2) quotes (3)labels (4) recipes", "a" : "3"},
+{ "q" : "The angry passengers argued ______ with the airline staff because their flight was cancelled withoutany reason.(1) evidently (2) furiously (3) obediently (4) suspiciously", "a" : "2"}
+]
+
+})
+
+
+
+{"exam" : "104學測英文" , "qaList" :    [
+
+{ "q" : "Nowadays many companies adopt a ______ work schedule which allows their employees to decide when to arrive at work—from as early as 6 a.m. to as late as 11 a.m.(1) relative (2) severe (3) primitive (4) flexible", "a" : "4"},
+{ "q" : "To teach children right from wrong, some parents will ______ their children when they behave well and punish them when they misbehave.(1) settle (2) declare (3) reward (4) neglect", "a" : "3"},
+{ "q" : "To stick to a tight budget, Robert bought a more ______ LE4 TV instead of a fancy, expensive 34 TV.(1) technical (2) significant (3) affordable (4) expressive","a" : "3"},
+{ "q" : "4avid’s new book made it to the best-seller list because of its beautiful ______ and amusing stories.(1) operations (2) illustrations (3) engagements (4) accomplishments ","a" : "2"},
+{ "q" : "The airport was closed because of the snowstorm, and our ______ for Paris had to be delayed until the following day.(1) movement (2) registration (3) tendency (4) departure", "a" : "4"},
+{ "q" : "The moment the students felt the earthquake, they ran ______ out of the classroom to an open area outside.(1) swiftly (2) nearly (3) loosely (4) formally", "a" : "1"},
+{ "q" : "The ______ capacity of this elevator is 400 kilograms. For safety reasons, it shouldn’t be overloaded.(1) delicate (2) automatic (3) essential (4) maximum", "a" : "4"},
+{ "q" : "1n open display of ______ behavior between men and women, such as hugging and kissing, is not allowed in some conservative societies.(1) intimate (2) ashamed (3) earnest (4) urgent", "a" : "1"},
+{ "q" : "When taking medicine, we should read the instructions on the ______ carefully because they provide important information such as how and when to take it.(1) medals (2) quotes (3)labels (4) recipes", "a" : "3"},
+{ "q" : "The angry passengers argued ______ with the airline staff because their flight was cancelled withoutany reason.(1) evidently (2) furiously (3) obediently (4) suspiciously", "a" : "2"}
+]
+}
+
+
+
+
+db.examdb.insert({"exam" : "電腦硬體裝修－1", "qaList" :
+ [
+	{ "q" : "電子元件中SRAM 的主要構成元件為(1)正反器(2)電容器(3)電阻(4)電感", "a" : "1"},
+	{ "q" : "個人電腦之CPU 目前不含那一單元(1)控制單元(2)算術單元(3)輸出入單元(4)邏輯單元", "a" : "3"},
+	{ "q" : "下列那一個與硬碟容量大小無關(1)磁軌(2)磁區(3)磁蕊(4)磁頭", "a" : "3"},
+	{ "q" : "數位影像唯讀光碟機的簡稱為(1)DVD-ROM(2)CD-ROM(3)LD-ROM(4)EPROM", "a" : "1"},
+	{ "q" : "PS2 介面接腳可用於連接滑鼠及鍵盤，其接腳為幾PIN？(1)六(2)七(3)八(4)九", "a" : "1"},
+	{ "q" : "印表機列印速度單位為(1)BPS(2)CPS(3)DPI(4)MHZ", "a" : "2"},
+	{ "q" : "一個60 倍速之光碟機代表其讀取速率為60 乘以(1)100(2)150(3)200(4)250 KB/S", "a" : "2"},
+	{ "q" : "32BIT的PCI BUS SLOT(插槽)計有(1)100 PIN(2)120PIN(3)140PIN(4)160PIN", "a" : "2"},
+	{ "q" : "在電腦接線圖裏HDD 代表(1)鍵盤(2)軟式磁碟機(3)螢幕(4)硬式磁碟機", "a" : "4"},
+	{ "q" : "以記憶體存取速度來比較，下列那一個最快(1)L1 快取記憶體(2)L2 快取記憶體(3)主記憶體(4)輔助記憶體", "a" : "1"}
+ ]
+
+ })
+
+10題,電腦硬體裝修-1
+/*
+	{ "q" : "個人電腦中1394 介面規格屬於下列何種規範？(1)IEEE(2)IDE(3)ISA(4)AGP", "a" : "1"},
+ 	{ "q" : "CRT 所顯示的色彩由RGB 三個基本色組成，當R、G、B 濃度都為0 時，在CRT 所看到的顏色為(1)灰(2)白(3)黑(4)棕", "a" : "3"},
+ 	{ "q" : "PC/AT 80X86 系列個人電腦的擴充槽I/O 埠位址共有多少？(1)256(2)512(3)1024(4)65536", "a" : "2"},
+ 	{ "q" : "下列何種記憶體可重複燒錄(1)RAM(2)PROM(3)ROM(4)EEPROM", "a" : "4"}
+ */
+
+
+{"exam" : "電腦硬體裝修-1", "qaList" :
+ [
+
+	{ "q" : "電子元件中SRAM 的主要構成元件為(1)正反器(2)電容器(3)電阻(4)電感", "a": "1"},
+	{ "q" : "個人電腦之CPU 目前不含那一單元(1)控制單元(2)算術單元(3)輸出入單元(4)邏輯單元", "a" : "3"},
+	{ "q" : "下列那一個與硬碟容量大小無關(1)磁軌(2)磁區(3)磁蕊(4)磁頭", "a" : "3"},
+	{ "q" : "數位影像唯讀光碟機的簡稱為(1)DVD-ROM(2)CD-ROM(3)LD-ROM(4)EPROM","a" : "1"},
+	{ "q" : "PS2 介面接腳可用於接滑鼠及鍵盤，其接腳為幾PIN？(1)六(2)七(3)八(4)九", "a" : "１"},
+	{ "q" : "印表機列印速度單位為(1)BPS(2)CPS(3)DPI(4)MHZ", "a" : "2"},
+	{ "q" : "一個60 倍速之光碟機代表其讀取速率為60 乘以(1)100(2)150(3)200(4)250 KB/S", "a" : "2"},
+	{ "q" : "32BIT的PCI BUS SLOT(插槽)計有(1)100 PIN(2)120PIN(3)140PIN(4)160PIN", "a" : "2"},
+	{ "q" : "在電腦接線圖裏HDD 代表(1)鍵盤(2)軟式磁碟機(3)螢幕(4)硬式磁碟機", "a" : "4"},
+	{ "q" : "以記憶體存取速度來比較，下列那一個最快(1)L1 快取記憶體(2)L2 快取記憶體(3)主記憶體(4)輔助記憶體", "a" : "1"}
+
+
+
+
+ ]
+ }
+
+10題,電腦硬體裝修-1
+ /*
+{ "q" : "個人電腦中1394 介面規格屬於下列何種規範？(1)IEEE(2)IDE(3)ISA(4)AGP", "a" : "1"},
+{ "q" : "CRT 所顯示的色彩由RGB 三個基本色組成，當R、G、B 濃度都為0 時，在CRT 所看到的顏色為(1)灰(2)白(3)黑(4)棕", "a" : "3"},
+{ "q" : "PC/AT 80X86 系列個人電腦的擴充槽I/O 埠位址共有多少？(1)256(2)512(3)1024(4)65536", "a" : "2"},
+{ "q" : "下列何種記憶體可重複燒錄(1)RAM(2)PROM(3)ROM(4)EEPROM", "a" : "4"}
+ */
+
+
+ db.examdb.insert({"exam" : "電腦硬體裝修－2", "qaList" :
+ [
+
+ 	{ "q": "今有一片顯示卡，如欲顯示解析度1024x768，顏色數為256 色，則至少需多少顯示記憶體方可順利顯示？(1)300KB(2)768KB(3)1024KB(4)1792KB", "a" : "2"},
+ 	{ "q": "下列何種記憶體更新資料時不需使用燒錄器，而其燒寫資料是以區塊為單位(1)FlashROM(2)PROM(3)EEPROM(4)Mask Rom", "a" :"2"},
+ 	{ "q": "下列何者不是電腦使用的匯流排(1)資料匯流排(2)程式匯流排(3)位址匯流排(4)控制匯流排", "a" :"2"},
+ 	{ "q": "小明所買的電腦為Pentium III 600 的電腦，其記憶體為64MB，請問64MB 為多少位元組？(1)64 乘2 的10 次方(2)64 乘10 的10 次方(3)64 乘2 的20 次方(4)64 乘10 的20 次方", "a" :"3"},
+ 	{ "q": "吸錫機(Solder Cleaner)是由幫浦、儲槽、吸錫管、吸錫頭及加熱裝置構成，其吸錫原理為？(1)高壓吹力(2)真空吸力(3)靜電吸力(4)虹吸管", "a" :"2"},
+ 	{ "q": "RS-232C 接線中，信號接地腳是第幾腳(PIN)？(1)1(2)2(3)3(4)7", "a":"4"},
+ 	{ "q": "RS-232C 其接腳數目為：(1)15(2)25(3)35(4)45 PIN", "a" :"2"},
+ 	{ "q": "RS-232C 介面的資料格式中，Parity check 永遠設定為0，則可稱為下列何者？(1)Even parity(2)Odd parity(3)Markparity(4)Space parity", "a" :"2"},
+ 	{ "q": "標準的RS-232C 所能傳輸的距離為(1)15 公尺(2)20 公尺(3)25 公尺(4)30 公尺", "a" :"1"},
+ 	{ "q": "連接RS-232C 的串列埠，其傳送訊號的電壓位準為正負多少伏特？(1)3V(2)5V(3)10V(4)12V", "a" :"4"}
+
+ ]
+
+ })
+
+10題-電腦硬體裝修－2
+ /*
+{ q: "IDE 介面所採用的資料線為？(1)32PIN(2)40PIN(3)48PIN(4)64PIN", a:"2"},
+{ q: "僅讀記憶體(ROM)可用來：(1)作為緩衝器(2)提供間接定址模式(3)儲存開機用的基本程式(4)作為程式註解", a:"3"},
+{ q: "電腦當機並出現On board parity error 的錯誤訊息是代表什麼出問題？(1)RAM(2)CPU(3)硬碟(4)BIOS", a:"1"},
+{ q: "何種I/O 方式所需要的硬體電路最少(1)Polling I/O(2)Interrupt I/O(3)DMA I/O(4)Channel I/O", a:"1"},
+{ q: "組合一個32K Byte 記憶體，採用下列何者元件來組合最適合？(1)DRAM 256Kx1Bit(2)DRAM 64Kx4Bits(3)SRAM16Kx4Bits(4)SRAM 16Kx8bits", a:"4"}
+ */
+
+
+{"exam" : "電腦硬體裝修－2", "qaList" :
+ [
+
+ 	{ "q" : "今有一片顯示卡，如欲顯示解析度1024x768，顏色數為256 色，則至少需多少顯示記憶體方可順利顯示？(1)300KB(2)768KB(3)1024KB(4)1792KB", "a" : "2"},
+ 	{ "q" : "下列何種記憶體更新資料時不需使用燒錄器，而其燒寫資料是以區塊為單位(1)FlashROM(2)PROM(3)EEPROM(4)Mask Rom", "a" :"1"},
+ 	{ "q" : "下列何者不是電腦使用的匯流排(1)資料匯流排(2)程式匯流排(3)位址匯流排(4)控制匯流排", "a" :"2"},
+ 	{ "q" : "小明所買的電腦為Pentium III 600 的電腦，其記憶體為64MB，請問64MB 為多少位元組？(1)64 乘2 的10 次方(2)64 乘10 的10 次方(3)64 乘2 的20 次方(4)64 乘10 的20 次方", "a" :"3"},
+ 	{ "q" : "吸錫機(Solder Cleaner)是由幫浦、儲槽、吸錫管、吸錫頭及加熱裝置構成，其吸錫原理為？(1)高壓吹力(2)真空吸力(3)靜電吸力(4)虹吸管", "a" :"2"},
+ 	{ "q" : "RS-232C 接線中，信號接地腳是第幾腳(PIN)？(1)1(2)2(3)3(4)7", "a" :"4"},
+ 	{ "q" : "RS-232C 其接腳數目為：(1)15(2)25(3)35(4)45 PIN", "a" :"2"},
+ 	{ "q" : "RS-232C 介面的資料格式中，Parity check 永遠設定為0，則可稱為下列何者？(1)Even parity(2)Odd parity(3)Markparity(4)Space parity", "a" :"2"},
+ 	{ "q" : "標準的RS-232C 所能傳輸的距離為(1)15 公尺(2)20 公尺(3)25 公尺(4)30 公尺", "a" :"1"},
+ 	{ "q" : "連接RS-232C 的串列埠，其傳送訊號的電壓位準為正負多少伏特？(1)3V(2)5V(3)10V(4)12V", "a" :"4"}
+
+ ]
+
+ }
+
+10題-電腦硬體裝修－2
+ /*
+{ "q" : "IDE 介面所採用的資料線為？(1)32PIN(2)40PIN(3)48PIN(4)64PIN", "a" :"2"},
+{ "q" : "僅讀記憶體(ROM)可用來：(1)作為緩衝器(2)提供間接定址模式(3)儲存開機用的基本程式(4)作為程式註解", "a" :"3"},
+{ "q" : "電腦當機並出現On board parity error 的錯誤訊息是代表什麼出問題？(1)RAM(2)CPU(3)硬碟(4)BIOS", "a" :"1"},
+{ "q" : "何種I/O 方式所需要的硬體電路最少(1)Polling I/O(2)Interrupt I/O(3)DMA I/O(4)Channel I/O", "a" :"1"},
+{ "q" : "組合一個32K Byte 記憶體，採用下列何者元件來組合最適合？(1)DRAM 256Kx1Bit(2)DRAM 64Kx4Bits(3)SRAM16Kx4Bits(4)SRAM 16Kx8bits", "a" :"4"}
+ */
+
+
+
+ db.examdb.insert({"exam" : "電腦硬體裝修－3", "qaList" :
+ [
+
+ 	{ q: "下列何者是SRAM 優於DRAM 的特點(1)密度高(2)容量大(3)不需作更新(Refresh)(4)價格低", a: "3"},
+ 	{ q: "下列那一項不是插在電腦主機板的槽(Slot)上？(1)VGA 卡(2)MOUSE(3)I/O 卡(4)聲霸卡", a:"2"},
+ 	{ q: "正常電源關閉後下列何種記憶體之內容會消失？(1)ROM BIOS(2)DRAM(3)HDD(4)EPROM", a:"2"},
+ 	{ q: "個人電腦系統開機首先執行下列何者？(1)BIOS(2)DOS(3)FDD(4)HDD", a:"1"},
+ 	{ q: "下列何者不須在BIOS 中設定？(1)時間(2)IDE HDD(3)SCSI HDD(4)FDD", a:"3"},
+ 	{ q: "個人電腦執行中重新啟動之暖開機是按下列何鍵？(1)ESC(2)CTRL+Q(3)CTRL+ALT+DEL(4)CTRL+DEL", a:"3"},
+ 	{ q: "能透過軟體直接更新主機板的BIOS 版本是下列那一種記憶體元件？(1)EPROM(2)EEPROM(3)Flash ROM(4)SRAM", a:"3"},
+ 	{ q: "可抹除並可重新輸入資料之ROM 為下列何種？(1)PROM(2)ROM(3)EPROM(4)Masked ROM", a:"3"},
+ 	{ q: "MODEM 之傳輸速度BPS，係指每秒可傳送單位為下列何者？(1)Bit(2)Nibble(3)Byte(4)Word", a:"1"},
+ 	{ q: "一般PC/AT COM1 之I/O 位址為？(1)0278H(2)02F8H(3)0378H(4)03F8H", a:"4"}
+
+ ]
+
+ })
+
+10題-電腦硬體裝修－3
+
+/*
+{ q: "個人電腦系統電腦開機後，若未聞警示音“嗶＂，且無影像顯示則下列何者最有可能故障問題？(1)RAM 不良(2)VGA卡有問題(3)CPU(4)Monitor", a:"4"},
+{ q: "一般PC 若要接5 台以上之硬碟，採用下列何介面較適宜？(1)SCSI(2)ATBUS(3)IDE(4)ESDI", a:"1"},
+{ q: "CPU Address BUS 共有24 條位址線則可有多少記憶定址容量？(1)16MB(2)18MB(3)24MB(4)2GB", a:"1"},
+{ q: "假設有一CPU 位址線為A0-A25 請問它可以定址的容量有多大？(1)1MB(2)16MB(3)32MB(4)64MB", a:"4"},
+{ q: "冷開機是以下列何種方式啟動？(1)CTRL+ALT+ESC 鍵(2)CTRL+ALT+DEL 鍵(3)RESET 鍵(4)TURBO 鍵", a:"3"}
+*/
+
+
+
+{"exam" : "電腦硬體裝修－3", "qaList" :
+ [
+
+ 	{ "q": "下列何者是SRAM 優於DRAM 的特點(1)密度高(2)容量大(3)不需作更新(Refresh)(4)價格低", "a": "3"},
+ 	{ "q": "下列那一項不是插在電腦主機板的槽(Slot)上？(1)VGA 卡(2)MOUSE(3)I/O 卡(4)聲霸卡", "a":"2"},
+ 	{ "q": "正常電源關閉後下列何種記憶體之內容會消失？(1)ROM BIOS(2)DRAM(3)HDD(4)EPROM", "a":"2"},
+ 	{ "q": "個人電腦系統開機首先執行下列何者？(1)BIOS(2)DOS(3)FDD(4)HDD", "a":"1"},
+ 	{ "q": "下列何者不須在BIOS 中設定？(1)時間(2)IDE HDD(3)SCSI HDD(4)FDD", "a":"3"},
+ 	{ "q": "個人電腦執行中重新啟動之暖開機是按下列何鍵？(1)ESC(2)CTRL+Q(3)CTRL+ALT+DEL(4)CTRL+DEL", "a":"3"},
+ 	{ "q": "能透過軟體直接更新主機板的BIOS 版本是下列那一種記憶體元件？(1)EPROM(2)EEPROM(3)Flash ROM(4)SRAM", "a":"3"},
+ 	{ "q": "可抹除並可重新輸入資料之ROM 為下列何種？(1)PROM(2)ROM(3)EPROM(4)Masked ROM", "a":"3"},
+ 	{ "q": "MODEM 之傳輸速度BPS，係指每秒可傳送單位為下列何者？(1)Bit(2)Nibble(3)Byte(4)Word", "a":"1"},
+ 	{ "q": "一般PC/AT COM1 之I/O 位址為？(1)0278H(2)02F8H(3)0378H(4)03F8H", "a":"4"}
+
+ ]
+
+ }
+
+
+10題-電腦硬體裝修－3
+/*
+{ "q": "個人電腦系統電腦開機後，若未聞警示音“嗶＂，且無影像顯示則下列何者最有可能故障問題？(1)RAM 不良(2)VGA卡有問題(3)CPU(4)Monitor", "a":"4"},
+{ "q": "一般PC 若要接5 台以上之硬碟，採用下列何介面較適宜？(1)SCSI(2)ATBUS(3)IDE(4)ESDI", "a":"1"},
+{ "q": "CPU Address BUS 共有24 條位址線則可有多少記憶定址容量？(1)16MB(2)18MB(3)24MB(4)2GB", "a":"1"},
+{ "q": "假設有一CPU 位址線為A0-A25 請問它可以定址的容量有多大？(1)1MB(2)16MB(3)32MB(4)64MB", "a":"4"},
+{ "q": "冷開機是以下列何種方式啟動？(1)CTRL+ALT+ESC 鍵(2)CTRL+ALT+DEL 鍵(3)RESET 鍵(4)TURBO 鍵", "a":"3"}
+*/

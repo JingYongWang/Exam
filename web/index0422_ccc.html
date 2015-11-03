@@ -244,7 +244,7 @@
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
 </div>
-
+<!--考試系統  考試葉面-->
   <div id="panelExam" class="container panel">
 
     <div class="page-header">
@@ -275,10 +275,12 @@
 
             </form>
     </p>
-    <button type="button" class="btn btn-primary">1</button>
-    <button type="button" class="btn btn-success">2</button>
-    <button type="button" class="btn btn-info">3</button>
-    <button type="button" class="btn btn-warning">4</button>
+
+    <!--2015/11/03 Add by 王勁詠-->
+    <button type="button" class="btn btn-primary" onclick = "option(this)" id = "optionA">1</button>
+    <button type="button" class="btn btn-success"onclick = "option(this)" id = "optionB">2</button>
+    <button type="button" class="btn btn-info"onclick = "option(this)" id = "optionC">3</button>
+    <button type="button" class="btn btn-warning"onclick = "option(this)" id = "optionD">4</button>
     <div class = "col-sm-12">
     </div>
     </BR>
@@ -331,12 +333,18 @@
     }
 
 	var noteID;
-    var qi;
-    function exam(examIdx) {
+  var qi;
+  function exam(examIdx) {
 	 ei = examIdx;
 	 qi=0;
-     switchPanel('panelExam');
-	 $('#editBody').html(exams[ei].qaList[qi].q);
+   switchPanel('panelExam');
+	 $('#editBody').append(exams[ei].qaList[qi].q);
+   /*2015/11/03 Add by 王勁詠*/
+   $('#editBody').append("<p>A:" + exams[ei].qaList[qi].optionA + "</p>");
+   $('#editBody').append("<p>B:" + exams[ei].qaList[qi].optionB + "</p>");
+   $('#editBody').append("<p>C:" + exams[ei].qaList[qi].optionC+ "</p>");
+   $('#editBody').append("<p>D:" + exams[ei].qaList[qi].optionD + "</p>");
+
     }
 
 	var examId;
@@ -352,9 +360,35 @@
 		 clearTimeout(t);
 	  }	else {
 	    $('#editBody').html(exams[ei].qaList[qi].q);
+      /*2015/11/03 Add by 王勁詠*/
+      $('#editBody').append("<p>A:" + exams[ei].qaList[qi].optionA + "</p>");
+      $('#editBody').append("<p>B:" + exams[ei].qaList[qi].optionB + "</p>");
+      $('#editBody').append("<p>C:" + exams[ei].qaList[qi].optionC+ "</p>");
+      $('#editBody').append("<p>D:" + exams[ei].qaList[qi].optionD + "</p>");
+
 	  }
 	  editTitle.value = "";
 	}
+
+  /*2015/11/03 Add by 王勁詠*/
+function option(userAns) {
+  alert(userAns);
+  //exams[ei].qaList[qi].userAnswer =  userAns; //創新的欄位
+  qi++;
+
+    alert("id為: " + userAns.id );
+
+
+
+  var clickOptionA = document.getElementsByClassName("optionA");
+  var clickOptionB = document.getElementsByClassName("optionB");
+  var clickOptionC = document.getElementsByClassName("optionC");
+  var clickOptionD = document.getElementsByClassName("optionD");
+
+
+
+}
+
 
 	var exams; // 考場:包含考試名稱與試題內容
 	var userExam = { answer:[] }; // 使用者這次考試的答題內容
