@@ -357,7 +357,6 @@
       {
 	     switchPanel('panelResult');
 		 result();
-		 clearTimeout(t);
 	  }	else {
 	    $('#editBody').html(exams[ei].qaList[qi].q);
       /*2015/11/03 Add by 王勁詠*/
@@ -372,21 +371,22 @@
 
   /*2015/11/03 Add by 王勁詠*/
 function option(userAns) {
-  alert(userAns);
+  //alert(userAns);
   //exams[ei].qaList[qi].userAnswer =  userAns; //創新的欄位
+  exams[ei].qaListp[qi].userAnswer = userAns;
   qi++;
-
-    alert("id為: " + userAns.id );
-
-
-
-  var clickOptionA = document.getElementsByClassName("optionA");
-  var clickOptionB = document.getElementsByClassName("optionB");
-  var clickOptionC = document.getElementsByClassName("optionC");
-  var clickOptionD = document.getElementsByClassName("optionD");
-
-
-
+  if (qi == exams[ei].qaList.length)
+  {
+    switchPanel('panelResult');
+    result();
+  }else{
+    $('#editBody').html(exams[ei].qaList[qi].q);
+    /*2015/11/03 Add by 王勁詠*/
+    $('#editBody').append("<p>A:" + exams[ei].qaList[qi].optionA + "</p>");
+    $('#editBody').append("<p>B:" + exams[ei].qaList[qi].optionB + "</p>");
+    $('#editBody').append("<p>C:" + exams[ei].qaList[qi].optionC+ "</p>");
+    $('#editBody').append("<p>D:" + exams[ei].qaList[qi].optionD + "</p>");
+  }
 }
 
 
