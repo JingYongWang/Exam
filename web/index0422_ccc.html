@@ -264,8 +264,9 @@
       </div>
     </div>
   -->
+  <!--
   <span>答案:</span><input id="editTitle"  class = "input-group" type="text" value="">
-
+  -->
     <br/>
 	 <p class="lead">
             <form action="javascript:pass()" class="lead">
@@ -328,22 +329,23 @@
 	switchPanel('panelRegister');
 	}
 
-    function init() {
-    switchPanel('panelHome');
-    }
+  function init() {
+  switchPanel('panelHome');
+  }
 
 	var noteID;
   var qi;
   function exam(examIdx) {
-	 ei = examIdx;
-	 qi=0;
-   switchPanel('panelExam');
-	 $('#editBody').append(exams[ei].qaList[qi].q);
-   /*2015/11/03 Add by 王勁詠*/
-   $('#editBody').append("<p>A:" + exams[ei].qaList[qi].optionA + "</p>");
-   $('#editBody').append("<p>B:" + exams[ei].qaList[qi].optionB + "</p>");
-   $('#editBody').append("<p>C:" + exams[ei].qaList[qi].optionC+ "</p>");
-   $('#editBody').append("<p>D:" + exams[ei].qaList[qi].optionD + "</p>");
+  	 ei = examIdx;
+  	 qi=0;
+     $('#editBody').empty();
+     switchPanel('panelExam');
+  	 $('#editBody').append(exams[ei].qaList[qi].q);
+     /*2015/11/03 Add by 王勁詠*/
+     $('#editBody').append("<p>A:" + exams[ei].qaList[qi].optionA + "</p>");
+     $('#editBody').append("<p>B:" + exams[ei].qaList[qi].optionB + "</p>");
+     $('#editBody').append("<p>C:" + exams[ei].qaList[qi].optionC+ "</p>");
+     $('#editBody').append("<p>D:" + exams[ei].qaList[qi].optionD + "</p>");
 
     }
 
@@ -373,7 +375,20 @@
 function option(userAns) {
   //alert(userAns);
   //exams[ei].qaList[qi].userAnswer =  userAns; //創新的欄位
-  exams[ei].qaListp[qi].userAnswer = userAns;
+  //alert("userAns is : " + userAns.id);
+  //alert(exams[ei].qaList[qi].optionA);
+
+  if (userAns.id == "optionA")
+  {
+    exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionA;
+  }else if (userAns.id == "optionA") {
+    exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionB;
+  }else if (true) {
+    exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionC;
+  }else {
+    exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionD;
+  }
+
   qi++;
   if (qi == exams[ei].qaList.length)
   {
@@ -393,7 +408,7 @@ function option(userAns) {
 	var exams; // 考場:包含考試名稱與試題內容
 	var userExam = { answer:[] }; // 使用者這次考試的答題內容
     //選擇考場的界線
-    function list() {
+function list() {
     switchPanel('panelList');
     $.ajax({
     type: "GET",
@@ -417,14 +432,42 @@ function option(userAns) {
 	}
 
 
-    function result(){  //考試系統的答案檢查，考試結果的報表
-        var correct = 0;
-        var wrong = 0;
-        var onescore;  //一題分數
+function result(){  //考試系統的答案檢查，考試結果的報表
+    var correct = 0;
+    var wrong = 0;
+    var onescore;  //一題分數
 		$('#panelResult').empty();
 		$('#panelResult').append("<h1>報表</h1>");
-        $('#panelResult').append("<ol>");
-        for(i =0; i<exams[ei].qaList.length; i++)
+    $('#panelResult').append("<ol>");
+
+    /*20151104 Add by 王勁詠*/
+    for(  i = 0 ; i < exams[ei].qaList.length ; i++)
+    {
+        if(exams[ei].qaList[i].userAnswer == exams[ei].qaList[i].corrAns)
+        {
+          $('#panelResult').append("<li>你的答案："+exams[ei].qaList[i].userAnswer+"; 答題結果：你答對了！</li>");
+          correct++;
+          $('#panelResult').append('<button type="button" class="btn btn-default" onclick="showQuestion('+i+')">看本題考題</button>');
+        }
+        else {
+          $('#panelResult').append("<li>你的答案："+exams[ei].qaList[i].userAnswer+"; 答題結果：你答錯了！, 正確答案："+exams[ei].qaList[i].corrAns+"</li>");
+          wrong++;
+          $('#panelResult').append('<button type="button" class="btn btn-default" onclick="showQuestion('+i+')">看本題考題</button>');
+        }
+        $('#panelResult').append("</ol>");
+        $('#panelResult').append("</br>");
+    }
+    if(correct+wrong == exams[ei].qaList.length)
+    {
+       onescore = 100/exams[ei].qaList.length;
+       $('#panelResult').append("你答對"+correct+"題,答錯"+wrong+"題,總分："+correct*onescore+"分");
+    }
+    $('#panelResult').append("<br/>")
+    $('#panelResult').append("<button type='button' class='btn btn-default' onclick='report()'>送出報表</button>");
+    $('#panelResult').append("<button type='button' class='btn btn-default' onclick='list()'>重新考試</button>");
+
+      /*20151104 Add by 王勁詠  原本邏輯
+    for(i =0; i<exams[ei].qaList.length; i++)
         {
             if(exams[ei].qaList[i].userAnswer == exams[ei].qaList[i].a)
                 {
@@ -438,7 +481,7 @@ function option(userAns) {
                 }
         }
         $('#panelResult').append("</ol>");
-		$('#panelResult').append("</br>");
+		    $('#panelResult').append("</br>");
         if(correct+wrong == exams[ei].qaList.length)
         {
            onescore = 100/exams[ei].qaList.length;
@@ -447,6 +490,7 @@ function option(userAns) {
 		$('#panelResult').append("<br/>")
 		$('#panelResult').append("<button type='button' class='btn btn-default' onclick='report()'>送出報表</button>");
 		$('#panelResult').append("<button type='button' class='btn btn-default' onclick='list()'>重新考試</button>");
+    */
     }
 
 	//這是管理者
@@ -583,14 +627,39 @@ function option(userAns) {
 	var his;
 	var ra;
 
-	function show(reportAmount){
-	  ra = reportAmount;
-	  switchPanel('panelHistoryreport');
-	  $('#panelHistoryreport').empty();
-	  $('#panelHistoryreport').append("<h1>歷史報表</h1>");
-	  $('#panelHistoryreport').append("<ol>");
+function show(reportAmount){
+    ra = reportAmount;
+    switchPanel('panelHistoryreport');
+    $('#panelHistoryreport').empty();
+    $('#panelHistoryreport').append("<h1>歷史報表</h1>");
+    $('#panelHistoryreport').append("<ol>");
 	  var correct = 0;
-      var wrong = 0;
+    var wrong = 0;
+
+    /*20151104 Add by 王勁詠*/
+    for(i = 0 ; i<his[ra].report.qaList.length; i++)
+      {
+        if(his[ra].report.qaList[i].userAnswer == his[ra].report.qaList[i].corrAns)
+        {
+          $('#panelHistoryreport').append("<li>你的答案："+his[ra].report.qaList[i].userAnswer+"; 答題結果：你答對了！</li>");
+          correct++;
+          $('#panelHistoryreport').append('<button type="button" class="btn btn-default" onclick="showHistoryquestion('+i+')">看本題考題</button>');
+        }else {
+          $('#panelHistoryreport').append("<li>你的答案："+his[ra].report.qaList[i].userAnswer+"; 答題結果：你答錯了！, 正確答案："+his[ra].report.qaList[i].corrAns+"</li>");
+          wrong++;
+          $('#panelHistoryreport').append('<button type="button" class="btn btn-default" onclick="showHistoryquestion('+i+')">看本題考題</button>');
+        }
+      }
+    if(correct+wrong == his[ra].report.qaList.length)
+      {
+        onescore = 100/his[ra].report.qaList.length;
+        $('#panelHistoryreport').append("你答對"+correct+"題,答錯"+wrong+"題,總分："+correct*onescore+"分");
+      }
+    $('#panelHistoryreport').append("<br/>");
+    $('#panelHistoryreport').append("<button type='button' class='btn btn-default' onclick='historyShow()'>返回歷史紀錄</button>");
+
+
+    /*20151104 Add by 王勁詠 原本邏輯
 	  for(i =0; i<his[ra].report.qaList.length; i++)
         {
             if(his[ra].report.qaList[i].userAnswer == his[ra].report.qaList[i].a)
@@ -613,7 +682,8 @@ function option(userAns) {
         }
 		$('#panelHistoryreport').append("<br/>");
 		$('#panelHistoryreport').append("<button type='button' class='btn btn-default' onclick='historyShow()'>返回歷史紀錄</button>");
-	}
+    */
+  }
 
 
 
@@ -689,25 +759,35 @@ function option(userAns) {
 	function showQuestion(qai) {
 	    var i = qai;
 	    switchPanel('panelQuestion');
-	    $('#panelQuestion').empty();
-		$('#panelQuestion').append("<h1>題目</h1>");
-        $('#panelQuestion').append("<ol>");
-		$('#panelQuestion').append("<li>題目："+exams[ei].qaList[i].q);
-		$('#panelQuestion').append("</li>");
-	    $('#panelQuestion').append("</ol>");
-	    $('#panelQuestion').append('<button type="button" class="btn btn-default" onclick="returnResult()">返回報表</button>');
-	}
+      $('#panelQuestion').empty();
+      $('#panelQuestion').append("<h1>題目</h1>");
+      $('#panelQuestion').append("<ol>");
+      $('#panelQuestion').append("<li>題目："+exams[ei].qaList[i].q);
+      /*20151104 Add by 王勁詠*/
+      $('#panelQuestion').append("<p>A:" + exams[ei].qaList[i].optionA + "</p>");
+      $('#panelQuestion').append("<p>B:" + exams[ei].qaList[i].optionB + "</p>");
+      $('#panelQuestion').append("<p>C:" + exams[ei].qaList[i].optionC+ "</p>");
+      $('#panelQuestion').append("<p>D:" + exams[ei].qaList[i].optionD + "</p>");
+      $('#panelQuestion').append("</li>");
+      $('#panelQuestion').append("</ol>");
+      $('#panelQuestion').append('<button type="button" class="btn btn-default" onclick="returnResult()">返回報表</button>');
+}
 
 	function showHistoryquestion(hqai){
 	    var i = hqai;
 	    switchPanel('panelHistoryquestion');
-	    $('#panelHistoryquestion').empty();
-		$('#panelHistoryquestion').append("<h1>歷史題目</h1>");
-        $('#panelHistoryquestion').append("<ol>");
-        $('#panelHistoryquestion').append("<li>題目："+his[ra].report.qaList[i].q);
-		$('#panelHistoryquestion').append("</li>");
-	    $('#panelHistoryquestion').append("</ol>");
-	    $('#panelHistoryquestion').append('<button type="button" class="btn btn-default" onclick="returnHistoryreport()">返回歷史報表</button>');
+      $('#panelHistoryquestion').empty();
+      $('#panelHistoryquestion').append("<h1>歷史題目</h1>");
+      $('#panelHistoryquestion').append("<ol>");
+      /*20151104 Add by 王勁詠*/
+      $('#panelHistoryquestion').append("<li>題目："+his[ra].report.qaList[i].q);
+      $('#panelHistoryquestion').append("<p>A:" + his[ra].report.qaList[i].optionA + "</p>");
+      $('#panelHistoryquestion').append("<p>B:" + his[ra].report.qaList[i].optionB + "</p>");
+      $('#panelHistoryquestion').append("<p>C:" + his[ra].report.qaList[i].optionC+ "</p>");
+      $('#panelHistoryquestion').append("<p>D:" + his[ra].report.qaList[i].optionD + "</p>");
+      $('#panelHistoryquestion').append("</li>");
+      $('#panelHistoryquestion').append("</ol>");
+      $('#panelHistoryquestion').append('<button type="button" class="btn btn-default" onclick="returnHistoryreport()">返回歷史報表</button>');
 	}
 
 	function nextPage(){
