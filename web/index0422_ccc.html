@@ -277,6 +277,8 @@
             </form>
     </p>
 
+
+
     <!--2015/11/03 Add by 王勁詠-->
     <button type="button" class="btn btn-primary" onclick = "option(this)" id = "optionA">1</button>
     <button type="button" class="btn btn-success"onclick = "option(this)" id = "optionB">2</button>
@@ -286,6 +288,7 @@
     </div>
     </BR>
     <input type="button" value="送出答案" onclick="pass()" class="btn btn-danger">
+
     <!--<textarea id="editBody" class="form-control" style="width:100%; height:60%"></textarea>-->
   </div>
     <script>
@@ -346,6 +349,22 @@
      $('#editBody').append("<p>B:" + exams[ei].qaList[qi].optionB + "</p>");
      $('#editBody').append("<p>C:" + exams[ei].qaList[qi].optionC+ "</p>");
      $('#editBody').append("<p>D:" + exams[ei].qaList[qi].optionD + "</p>");
+     $('#editBody').append("<p>Time:" + exams[ei].time + "</p>");
+     $('#editBody').append("<p><div id = 'clock'></div></p>");
+     //var dbTime = new Date().getTime() + exams[ei].time;
+     //alert(dbTime);
+
+     var dbTime = new Date().getTime() + 5000;
+     $('#clock').countdown(dbTime,{elapse: true})
+     .on('update.countdown',function (event) {
+       var $this  =  $(this);
+       if(event.elapsed){
+         $this.html(event.strftime('After end: <span>%H:%M:%S</span>'));
+       }
+       else {
+         $this.html(event.strftime('To end: <span>%H:%M:%S</span>'));
+       }
+     });
 
     }
 
@@ -366,6 +385,9 @@
       $('#editBody').append("<p>B:" + exams[ei].qaList[qi].optionB + "</p>");
       $('#editBody').append("<p>C:" + exams[ei].qaList[qi].optionC+ "</p>");
       $('#editBody').append("<p>D:" + exams[ei].qaList[qi].optionD + "</p>");
+
+
+
 
 	  }
 	  editTitle.value = "";
@@ -817,26 +839,12 @@ function show(reportAmount){
     */
     /*
     $('#panelExam').append("<h1 class='alt-1'>00:00:10</h1>");
-
-    window.jQuery(function ($) {
-      "use strict";
-
-      $('time').countDown({
-          with_separators: false
-      });
-
-      $('.alt-1').countDown({
-          css_class: 'countdown-alt-1'
-      });
-
-      $('.alt-2').countDown({
-          css_class: 'countdown-alt-2'
-      });
-    });
     */
     }
 
-	function toMeg(){
+
+
+function toMeg(){
 	   switchPanel("panelMessage");
 	}
 
@@ -859,9 +867,28 @@ function show(reportAmount){
     <script src="js/collapse.js"></script>
     <script src="js/carousel.js"></script>
 
-    <script type="text/javascript" src="js/jquery.countdown.js"></script>
-	  <script src="js/bootstrap-filestyle.min.js">
+    <script type="text/javascript" src="js/jquery.countdown.min.js"></script>
+
     <link rel="stylesheet" href="css/countdown.demo.css">
+    <!--20151107 Add by王勁詠 clock-->
+    <script>
+      //var dbTime = new Date().getTime() + 36000 exams[ei].time;
+      /*
+      var dbTime = new Date().getTime() + 36000;
+      $('#clock').countdown(dbTime,{elapse: true})
+      .on('update.countdown',function (event) {
+        var $this  =  $(this);
+        if(event.elapsed){
+          $this.html(event.strftime('After end: <span>%H:%M:%S</span>'));
+        }
+        else {
+          $this.html(event.strftime('To end: <span>%H:%M:%S</span>'));
+        }
+      });
+      */
+    </script>
+	  <script src="js/bootstrap-filestyle.min.js">
+
 
 </body>
 

@@ -1,0 +1,445 @@
+show dbs
+show collections
+db.exabdb.find()
+db.password.find()
+db.examdb.insert()
+db.examdb.find({"exam": "TestTime"})
+db.examdb.update({"exam" : "TestTime"},{$set:{"time" : 60000}})
+
+{ "exam" : "TestTime" , "qaList" :
+[
+  {
+    "q" : "'hello world' has __ word?",
+    "optionA" : "3",
+    "optionB" : "5",
+    "optionC" : "7",
+    "optionD" : "10",
+    "corrAns" : "10"
+  }
+]
+,
+  "time" : "6000"
+}
+
+
+
+{ "exam" : "EnglishTest" , "qaList" :
+[
+  {
+    "q" : "'hello world' has __ word?",
+    "optionA" : "3",
+    "optionB" : "5",
+    "optionC" : "7",
+    "optionD" : "10",
+    "corrAns" : "10"
+  },
+  {
+    "q" : "'Handsome boy' has __ word?",
+    "optionA" : "15",
+    "optionB" : "10",
+    "optionC" : "11",
+    "optionD" : "12",
+    "corrAns" : "11"
+  }
+]
+,
+  "time" : "30"
+}
+
+
+//目前題目格式
+//db.exam
+{
+    "exam": "math",
+    "qaList": 
+[
+	{
+        "q": "1+2?",
+		"optionA" : "4",
+        "optionB" : "3",
+        "optionC" : "4",
+        "optionD" : "5",
+        "corrAns" : "3"
+    }, 
+	{
+        "q": "3+4?",
+		"optionA" : "5",
+        "optionB" : "6",
+        "optionC" : "7",
+        "optionD" : "8",
+        "corrAns" : "7"
+    }
+]
+,
+  "time" : "60"
+}
+//101
+
+
+{"exam" : "數學加法", "qaList" :
+[
+   { 
+        "q": "1+2?",
+		"optionA" : "4",
+        "optionB" : "3",
+        "optionC" : "4",
+        "optionD" : "5",
+        "corrAns" : "3"
+   },
+   {
+        "q": "3+8=?",
+		"optionA" : "7",
+        "optionB" : "12",
+        "optionC" : "9",
+        "optionD" : "11",
+        "corrAns" : "11"
+   }
+]
+,
+  "time" : "60"
+}
+
+{"exam" : "104學測英文" , "qaList" :
+[
+
+{       "q" : "Nowadays many companies adopt a ______ work schedule which allows their employees to decide when to arrive at  work—from as early as 6 a.m. to as late as 11 a.m.",
+		"optionA" : "relative",
+        "optionB" : "severe",
+        "optionC" : "primitive",
+        "optionD" : "flexible",
+        "corrAns" : "flexible" 
+},
+{
+        "q" : "To teach children right from wrong, some parents will ______ their children when they behave well and punish them when they misbehave.",
+		"optionA" : "settle",
+        "optionB" : "declare",
+        "optionC" : "reward",
+        "optionD" : "neglect",
+        "corrAns" : "reward"
+},
+{       "q" : "To stick to a tight budget, Robert bought a more ______ LE4 TV instead of a fancy, expensive 34 TV.",
+        "optionA" : "technical",
+        "optionB" : "significant",
+        "optionC" : "affordable",
+        "optionD" : "expressive",
+        "corrAns" : "affordable"
+},
+{       "q" : "4avid’s new book made it to the best-seller list because of its beautiful ______ and amusing stories.",
+        "optionA" : "operations",
+        "optionB" : "illustrations",
+        "optionC" : "engagements",
+        "optionD" : "accomplishments",
+        "corrAns" : "illustrations"
+},
+{       "q" : "The airport was closed because of the snowstorm, and our ______ for Paris had to be delayed until the followingday.", 
+        "optionA" : "movement",
+        "optionB" : "registration",
+        "optionC" : "tendency",
+        "optionD" : "departure",
+        "corrAns" : "departure"
+},
+{      "q" : "The moment the students felt the earthquake, they ran ______ out of the classroom to an open area outside.",
+       "optionA" : "swiftly",
+       "optionB" : "nearly",
+       "optionC" : "loosely",
+       "optionD" : "formally",
+       "corrAns" : "swiftly" 
+},
+{      "q" : "The ______ capacity of this elevator is 400 kilograms. For safety reasons, it shouldn’t be overloaded.", 
+       "optionA" : "delicate",
+       "optionB" : "automatic",
+       "optionC" : "essential",
+       "optionD" : "maximum",
+       "corrAns" : "maximum" 
+},
+{      "q" : "1n open display of ______ behavior between men and women, such as hugging and kissing, is not allowed in some conservative societies.",
+	   "optionA" : "intimate",
+       "optionB" : "ashamed",
+       "optionC" : "earnest",
+       "optionD" : "urgent",
+       "corrAns" : "intimate"
+},
+{      "q" : "When taking medicine, we should read the instructions on the ______ carefully because they provide important information such as how and when to take it.",
+	   "optionA" : "medals",
+       "optionB" : "quotes",
+       "optionC" : "labels",
+       "optionD" : "recipes",
+       "corrAns" : "labels"
+},
+{      "q" : "The angry passengers argued ______ with the airline staff because their flight was cancelled withoutanyreason.",
+	   "optionA" : "evidently",
+       "optionB" : "furiously",
+       "optionC" : "obediently",
+       "optionD" : "suspiciously",
+       "corrAns" : "furiously"
+}
+]
+,
+   "time" : "600"
+}
+
+
+{"exam" : "電腦硬體裝修－1", "qaList" :
+ [
+	{ 
+	      "q" : "電子元件中SRAM 的主要構成元件為?",
+		  "optionA" : "正反器",
+          "optionB" : "電容器",
+          "optionC" : "電阻",
+          "optionD" : "電感",
+          "corrAns" : "正反器"
+	},
+	{     
+	      "q" : "個人電腦之CPU 目前不含那一單元?", 
+	      "optionA" : "控制單元",
+          "optionB" : "算術單元",
+          "optionC" : "輸出入單元",
+          "optionD" : "邏輯單元",
+          "corrAns" : "輸出入單元"
+	},
+	{     
+	      "q" : "下列那一個與硬碟容量大小無關?",	
+	      "optionA" : "磁軌",
+          "optionB" : "磁區",
+          "optionC" : "磁蕊",
+          "optionD" : "磁頭",
+          "corrAns" : "磁蕊"
+	},
+	{     
+	      "q" : "數位影像唯讀光碟機的簡稱為?",
+	      "optionA" : "DVD-ROM",
+          "optionB" : "CD-ROM",
+          "optionC" : "LD-ROM",
+          "optionD" : "EPROM",
+          "corrAns" : "DVD-ROM"
+	},
+	{    
+     	  "q" : "PS2 介面接腳可用於連接滑鼠及鍵盤，其接腳為幾PIN？(1)六(2)七(3)八(4)九?",
+		  "optionA" : "六",
+          "optionB" : "七",
+          "optionC" : "八",
+          "optionD" : "九",
+          "corrAns" : "六"
+    },
+	{ 
+	      "q" : "印表機列印速度單位為?",
+		  "optionA" : "BPS",
+          "optionB" : "CPS",
+          "optionC" : "DPI",
+          "optionD" : "MHZ",
+          "corrAns" : "CPS"
+    },
+	{ 
+	      "q" : "一個60 倍速之光碟機代表其讀取速率為60 乘以?",
+		  "optionA" : "100KB/S",
+          "optionB" : "150KB/S",
+          "optionC" : "200KB/S",
+          "optionD" : "250KB/S",
+          "corrAns" : "150KB/S"
+    },
+	{ 
+	      "q" : "32BIT的PCI BUS SLOT(插槽)計有?",
+		  "optionA" : "100PIN",
+          "optionB" : "120PIN",
+          "optionC" : "140PIN",
+          "optionD" : "160PIN",
+          "corrAns" : "120PIN"
+    },
+	{ 
+	      "q" : "在電腦接線圖裏HDD 代表?",
+		  "optionA" : "鍵盤",
+          "optionB" : "軟式磁碟機",
+          "optionC" : "螢幕",
+          "optionD" : "硬式磁碟機",
+          "corrAns" : "硬式磁碟機"
+    },
+	{ 
+	      "q" : "以記憶體存取速度來比較，下列那一個最快(1)L1 快取記憶體(2)L2 快取記憶體(3)主記憶體(4)輔助記憶體",
+		  "optionA" : "L1 快取記憶體",
+          "optionB" : "L2 快取記憶體",
+          "optionC" : "主記憶體",
+          "optionD" : "輔助記憶體",
+          "corrAns" : "L1 快取記憶體"
+    }
+ ]
+ ,
+   "time" : "600"
+ }
+
+ {"exam" : "電腦硬體裝修－2", "qaList" :
+ [
+
+ 	{ 
+	      "q": "今有一片顯示卡，如欲顯示解析度1024x768，顏色數為256 色，則至少需多少顯示記憶體方可順利顯示？",
+		  "optionA" : "300KB",
+          "optionB" : "768KB",
+          "optionC" : "1024KB",
+          "optionD" : "1792KB",
+          "corrAns" : "768KB"
+	},
+ 	{ 
+	      "q": "下列何種記憶體更新資料時不需使用燒錄器，而其燒寫資料是以區塊為單位?",
+		  "optionA" : "FlashROM",
+          "optionB" : "PROM",
+          "optionC" : "EEPROM",
+          "optionD" : "Mask Rom",
+          "corrAns" : "PROM"
+	},
+ 	{ 
+	      "q": "下列何者不是電腦使用的匯流排?", 
+		  "optionA" : "資料匯流排",
+          "optionB" : "程式匯流排",
+          "optionC" : "位址匯流排",
+          "optionD" : "控制匯流排",
+          "corrAns" : "程式匯流排"
+	},
+ 	{ 
+	      "q": "小明所買的電腦為Pentium III 600 的電腦，其記憶體為64MB，請問64MB 為多少位元組？",
+		  "optionA" : "64 乘2 的10 次方",
+          "optionB" : "64 乘10 的10 次方",
+          "optionC" : "64 乘2 的20 次方",
+          "optionD" : "64 乘10 的20 次方",
+          "corrAns" : "64 乘2 的20 次方"
+	},
+ 	{ 
+	      "q": "吸錫機(Solder Cleaner)是由幫浦、儲槽、吸錫管、吸錫頭及加熱裝置構成，其吸錫原理為？",
+		  "optionA" : "高壓吹力",
+          "optionB" : "真空吸力",
+          "optionC" : "靜電吸力",
+          "optionD" : "虹吸管",
+          "corrAns" : "真空吸力"
+	},
+ 	{ 
+	      "q": "RS-232C 接線中，信號接地腳是第幾腳(PIN)？",
+		  "optionA" : "1",
+          "optionB" : "2",
+          "optionC" : "3",
+          "optionD" : "7",
+          "corrAns" : "7"
+	},
+ 	{ 
+	      "q": "RS-232C 其接腳數目為：多少PIN?",
+		  "optionA" : "15PIN",
+          "optionB" : "25PIN",
+          "optionC" : "35PIN",
+          "optionD" : "45PIN",
+          "corrAns" : "25PIN"
+	},
+ 	{ 
+	      "q": "RS-232C 介面的資料格式中，Parity check 永遠設定為0，則可稱為下列何者？(1)Even parity(2)Odd parity(3)Markparity(4)Space parity",
+		  "optionA" : "Even parity",
+          "optionB" : "Odd parity",
+          "optionC" : "Markparity",
+          "optionD" : "Space parity",
+          "corrAns" : "Odd parity"
+	},
+ 	{ 
+	      "q": "標準的RS-232C 所能傳輸的距離為?",
+		  "optionA" : "15 公尺",
+          "optionB" : "20 公尺",
+          "optionC" : "25 公尺",
+          "optionD" : "30 公尺",
+          "corrAns" : "15 公尺"
+	},
+ 	{ 
+	      "q": "連接RS-232C 的串列埠，其傳送訊號的電壓位準為正負多少伏特？(1)3V(2)5V(3)10V(4)12V",
+		  "optionA" : "3V",
+          "optionB" : "5V",
+          "optionC" : "10V",
+          "optionD" : "12V",
+          "corrAns" : "12V"
+	}
+ ]
+ ,
+    "time" : "600"
+ }
+
+
+{"exam" : "電腦硬體裝修－3", "qaList" :
+ [
+ 	{ 
+	      "q" : "下列何者是SRAM 優於DRAM 的特點?",
+		  "optionA" : "密度高",
+          "optionB" : "容量大",
+          "optionC" : "不需作更新(Refresh)",
+          "optionD" : "價格低",
+          "corrAns" : "不需作更新(Refresh)"
+	},
+ 	{ 
+	      "q" : "下列那一項不是插在電腦主機板的槽(Slot)上?",
+		  "optionA" : "VGA卡",
+          "optionB" : "MOUSE",
+          "optionC" : "I/O 卡",
+          "optionD" : "聲霸卡",
+          "corrAns" : "MOUSE"
+	},
+ 	{ 
+	      "q" : "正常電源關閉後下列何種記憶體之內容會消失?",
+		  "optionA" : "ROM BIOS",
+          "optionB" : "DRAM",
+          "optionC" : "HDD",
+          "optionD" : "EPROM",
+          "corrAns" : "DRAM"
+	},
+ 	{ 
+	      "q" : "個人電腦系統開機首先執行下列何者?",
+		  "optionA" : "BIOS",
+          "optionB" : "DOS",
+          "optionC" : "FDD",
+          "optionD" : "HDD",
+          "corrAns" : "BIOS"
+	},
+ 	{ 
+	      "q" : "下列何者不須在BIOS 中設定?",
+		  "optionA" : "時間",
+          "optionB" : "IDE HDD",
+          "optionC" : "SCSI HDD",
+          "optionD" : "FDD",
+          "corrAns" : "SCSI HDD"
+	},
+ 	{ 
+	      "q" : "個人電腦執行中重新啟動之暖開機是按下列何鍵?", 
+		  "optionA" : "ESC",
+          "optionB" : "CTRL+Q",
+          "optionC" : "CTRL+ALT+DEL",
+          "optionD" : "CTRL+DEL",
+          "corrAns" : "CTRL+ALT+DEL"
+    },
+ 	{ 
+	      "q" : "能透過軟體直接更新主機板的BIOS 版本是下列那一種記憶體元件?",
+          "optionA" : "EPROM",
+          "optionB" : "EEPROM",
+          "optionC" : "Flash ROM",
+          "optionD" : "SRAM",
+          "corrAns" : "Flash ROM"		  
+	},
+
+	{ 
+	      "q" : "可抹除並可重新輸入資料之ROM為下列何種?", 
+		  "optionA" : "PROM",
+          "optionB" : "ROM",
+          "optionC" : "EPROM",
+          "optionD" : "Masked ROM",
+          "corrAns" : "EPROM"
+	},
+ 	{ 
+	      "q" : "MODEM 之傳輸速度BPS，係指每秒可傳送單位為下列何者?",
+		  "optionA" : "Bit",
+          "optionB" : "Nibble",
+          "optionC" : "Byte",
+          "optionD" : "Word",
+          "corrAns" : "Bit"
+	},
+ 	{ 
+	      "q" : "一般PC/AT COM1 之I/O 位址為？",
+		  "optionA" : "0278H",
+          "optionB" : "02F8H",
+          "optionC" : "0378H",
+          "optionD" : "03F8H",
+          "corrAns" : "03F8H"
+	}
+
+ ]
+ ,
+    "time" : "600"
+ }
