@@ -9,17 +9,45 @@ db.examdb.update({"exam" : "TestTime"},{$set:{"time" : 60000}})
 { "exam" : "TestTime" , "qaList" :
 [
   {
-    "q" : "'hello world' has __ word?",
-    "optionA" : "3",
-    "optionB" : "5",
-    "optionC" : "7",
-    "optionD" : "10",
-    "corrAns" : "10"
-  }
+		"q" : "'hello world' has __ word?",
+		"optionA" : "3",
+		"optionB" : "5",
+		"optionC" : "7",
+		"optionD" : "10",
+		"corrAns" : "10"
+  },
+  {
+		"q" : "Now MongoDB Version??",
+		"optionA" : "1",
+		"optionB" : "2",
+		"optionC" : "3",
+		"optionD" : "4",
+		"corrAns" : "3"
+  }, 
+  {
+		"q" : "Now Node Version??",
+		"optionA" : "1",
+		"optionB" : "2",
+		"optionC" : "3",
+		"optionD" : "4",
+		"corrAns" : "4"
+  },
+  {
+		"q" : "MongoChef is good!",
+		"optionA" : "Yes",
+		"optionB" : "Not reallu",
+		"optionC" : "No",
+		"optionD" : "No comment",
+		"corrAns" : "Yes"
+  },
+  
 ]
 ,
-  "time" : "6000"
+  "time" : 60000
 }
+
+
+
 
 
 

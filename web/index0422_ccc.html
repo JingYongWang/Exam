@@ -293,6 +293,11 @@
     <button type="button" class="btn btn-success"onclick = "option(this)" id = "optionB">B</button>
     <button type="button" class="btn btn-info"onclick = "option(this)" id = "optionC">C</button>
     <button type="button" class="btn btn-warning"onclick = "option(this)" id = "optionD">D</button>
+    </BR>
+    <button type="button" class="btn btn-default"onclick = "ExamOverTime(0)">結束考試</button>
+    </BR>
+    <button type="button" class="btn btn-default"onclick = "option(this)" id = "previousQuestion">上一題</button>
+    <button type="button" class="btn btn-default"onclick = "option(this)" id = "nextQuestion">下一題</button>
     <div class = "col-sm-12">
     </div>
     </BR>
@@ -360,10 +365,13 @@
      $('#editBody').append("<p>B:" + exams[ei].qaList[qi].optionB + "</p>");
      $('#editBody').append("<p>C:" + exams[ei].qaList[qi].optionC+ "</p>");
      $('#editBody').append("<p>D:" + exams[ei].qaList[qi].optionD + "</p>");
+
      //$('#editBody').append("<p><div id = 'clock'></div></p>");
      //var dbTime = new Date().getTime() + exams[ei].time;
      /*20151108 add by 王勁詠*/
      var dbTime = new Date().getTime() + exams[ei].time;
+     ExamOverTime(dbTime)
+     /*
      $('#clock').countdown(dbTime)
       .on('update.countdown',function (event) {
         var $this = $(this);
@@ -374,6 +382,22 @@
         switchPanel('panelResult');
         result();
       });
+      */
+    }
+    /*20151108 Add by 王勁詠 考試時間設定*/
+    function ExamOverTime(dbTime) {
+
+      //var dbTime = new Date().getTime() + exams[ei].time;
+      $('#clock').countdown(dbTime)
+       .on('update.countdown',function (event) {
+         var $this = $(this);
+           $this.html(event.strftime('To end: <span>%H:%M:%S</span>'));
+       })
+       .on('finish.countdown', function(event){
+         var $this = $(this);
+         switchPanel('panelResult');
+         result();
+       });
     }
 
 	var examId;
@@ -400,33 +424,116 @@
   */
 
   /*2015/11/03 Add by 王勁詠*/
-function option(userAns) {
+function option(userValue) {
   //alert(userAns);
   //exams[ei].qaList[qi].userAnswer =  userAns; //創新的欄位
-  //alert("userAns is : " + userAns.id);
-  //alert(exams[ei].qaList[qi].optionA);
 
-  if (userAns.id == "optionA")
-  {
-    exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionA;
-  }else if (userAns.id == "optionB") {
-    exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionB;
-  }else if (userAns.id == "optionC") {
-    exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionC;
-  }else {
-    exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionD;
+
+  /*2015/11/08 Add by 王勁詠*/
+  //判斷切題
+  switch(userValue.id){
+    case "optionA":
+      exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionA;
+      qi++;
+      break;
+    case "optionB":
+      exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionB;
+      qi++;
+      break;
+    case "optionC":
+      exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionC;
+      qi++;
+      break;
+    case "optionD":
+      exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionD;
+      qi++;
+      break;
+    case "previousQuestion":
+      if (qi == 0)
+      {
+        alertify.alert("沒有上一題囉,請按下一題");
+      }else {
+        qi--;
+      }
+      break;
+    case "nextQuestion":
+      if (qi == exams[ei].qaList.length)
+      {
+        alertify.alert("這是最後一題囉!");
+      }else {
+        qi++;
+      }
+      break;
+    default:
+        qi++;
   }
 
-  qi++;
+  /*
+  if (userValue.id == "optionA")
+  {
+    exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionA;
+    qi++;
+  }
+  else if (userValue.id == "optionB") {
+    exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionB;
+    qi++;
+  }
+  else if (userValue.id == "optionC") {
+    exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionC;
+    qi++;
+  }
+  else if (userValue.id == "optionD"){
+    exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionD;
+    qi++;
+
+  //判斷切題
+  }else if(userValue.id == "previousQuestion")
+  {
+
+    if (qi == 0)
+    {
+      alertify.alert("沒有上一題囉,請按下一題");
+    }else {
+      qi--;
+    }
+
+  }
+  else if (userValue.id = "nextQuestion") {
+
+    if (qi == exams[ei].qaList.length)
+    {
+      alertify.alert("這是最後一題囉!");
+    }else {
+      qi++;
+    }
+  }
+  else{
+    //沒有點上一題跟下一題的結果,正常照舊
+    qi++;
+  }
+  */
   if (qi == exams[ei].qaList.length)
   {
+    //0 1 2 3 最後一次點選項也會加到,所以qi要扣1
+    qi--;
+    alertify.set({ buttonReverse: true });
+    alertify.confirm("你已經答題完畢,需要繼續作答嗎?",function (e) {
+      if(e){
+        //Yes
+      }else{
+        //No
+        switchPanel('panelResult');
+        result();
+      }
+    });
+    /*
     $('#clock').countdown(0)
      .on('finish.countdown', function(event){
        var $this = $(this);
        switchPanel('panelResult');
        result();
      });
-
+     */
   }else{
     $('#editBody').html(exams[ei].qaList[qi].q);
     /*2015/11/03 Add by 王勁詠*/
@@ -495,6 +602,11 @@ function result(){  //考試系統的答案檢查，考試結果的報表
     {
        onescore = 100/exams[ei].qaList.length;
        $('#panelResult').append("你答對"+correct+"題,答錯"+wrong+"題,總分："+correct*onescore+"分");
+       if(correct*onescore == 0)
+          alertify.alert("看的到這個提示訊息代表...  你連一題都沒答對，0分。");
+        else if (correct*onescore == 100) {
+          alertify.alert("全對，拿了100分好棒棒");
+        }
     }
     $('#panelResult').append("<br/>")
     $('#panelResult').append("<button type='button' class='btn btn-default' onclick='report()'>送出報表</button>");
