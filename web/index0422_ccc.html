@@ -244,11 +244,16 @@
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
 </div>
-<!--考試系統  考試葉面-->
-  <div id="panelExam" class="container panel">
+<!--考試系統  考試頁面-->
 
+<div id="panelExam" class="container panel">
+<!--20151108 Add by 王勁詠-->
     <div class="page-header">
-            <h1>開始測驗 <span style="color:#336699" id="countMsg"></span></h1>
+            <h2>開始測驗
+              <span style="color:#336699" id="countMsg"></span>
+              <div id = "clock"></div>
+            </h2>
+
     </div>
 <!--
   <div class= "row">
@@ -269,12 +274,16 @@
   -->
     <br/>
 	 <p class="lead">
-            <form action="javascript:pass()" class="lead">
-                 <!--當提交表單時，表單數據會提交到名為"javascript:pass()" 的頁面： -->
-                <span id="editBody"></span>
-                 <!--題目 -->
-
-            </form>
+<!--20151108 remove by 王勁詠-->
+<!--
+    <form action="javascript:pass()" class="lead">
+     當提交表單時，表單數據會提交到名為"javascript:pass()" 的頁面：
+      <span id="editBody"></span>
+     題目
+    </form>
+-->
+      <span id="editBody"></span>
+      <!--題目-->
     </p>
 
 
@@ -287,10 +296,11 @@
     <div class = "col-sm-12">
     </div>
     </BR>
+    <!--
     <input type="button" value="送出答案" onclick="pass()" class="btn btn-danger">
-
+    -->
     <!--<textarea id="editBody" class="form-control" style="width:100%; height:60%"></textarea>-->
-  </div>
+</div>
     <script>
     /*使用Jquery才有效果,分頁跟上面點選效果*/
 	/*
@@ -343,55 +353,51 @@
   	 qi=0;
      $('#editBody').empty();
      switchPanel('panelExam');
+     //$('#panelExam').append("<p><div id = 'clock'></div></p>");
   	 $('#editBody').append(exams[ei].qaList[qi].q);
      /*2015/11/03 Add by 王勁詠*/
      $('#editBody').append("<p>A:" + exams[ei].qaList[qi].optionA + "</p>");
      $('#editBody').append("<p>B:" + exams[ei].qaList[qi].optionB + "</p>");
      $('#editBody').append("<p>C:" + exams[ei].qaList[qi].optionC+ "</p>");
      $('#editBody').append("<p>D:" + exams[ei].qaList[qi].optionD + "</p>");
-     $('#editBody').append("<p>Time:" + exams[ei].time + "</p>");
-     $('#editBody').append("<p><div id = 'clock'></div></p>");
+     //$('#editBody').append("<p><div id = 'clock'></div></p>");
      //var dbTime = new Date().getTime() + exams[ei].time;
-     //alert(dbTime);
-
-     var dbTime = new Date().getTime() + 5000;
-     $('#clock').countdown(dbTime,{elapse: true})
-     .on('update.countdown',function (event) {
-       var $this  =  $(this);
-       if(event.elapsed){
-         $this.html(event.strftime('After end: <span>%H:%M:%S</span>'));
-       }
-       else {
-         $this.html(event.strftime('To end: <span>%H:%M:%S</span>'));
-       }
-     });
-
+     /*20151108 add by 王勁詠*/
+     var dbTime = new Date().getTime() + exams[ei].time;
+     $('#clock').countdown(dbTime)
+      .on('update.countdown',function (event) {
+        var $this = $(this);
+          $this.html(event.strftime('To end: <span>%H:%M:%S</span>'));
+      })
+      .on('finish.countdown', function(event){
+        var $this = $(this);
+        switchPanel('panelResult');
+        result();
+      });
     }
 
 	var examId;
 	var ei;
-
+  /*
 	function pass() {
 	  exams[ei].qaList[qi].userAnswer =  $('#editTitle').val();
 	  qi++;
       if(qi == exams[ei].qaList.length)
       {
-	     switchPanel('panelResult');
-		 result();
+        switchPanel('panelResult');
+        result();
 	  }	else {
 	    $('#editBody').html(exams[ei].qaList[qi].q);
-      /*2015/11/03 Add by 王勁詠*/
+
       $('#editBody').append("<p>A:" + exams[ei].qaList[qi].optionA + "</p>");
       $('#editBody').append("<p>B:" + exams[ei].qaList[qi].optionB + "</p>");
       $('#editBody').append("<p>C:" + exams[ei].qaList[qi].optionC+ "</p>");
       $('#editBody').append("<p>D:" + exams[ei].qaList[qi].optionD + "</p>");
 
-
-
-
 	  }
-	  editTitle.value = "";
+	  //editTitle.value = "";
 	}
+  */
 
   /*2015/11/03 Add by 王勁詠*/
 function option(userAns) {
@@ -423,6 +429,7 @@ function option(userAns) {
     $('#editBody').append("<p>B:" + exams[ei].qaList[qi].optionB + "</p>");
     $('#editBody').append("<p>C:" + exams[ei].qaList[qi].optionC+ "</p>");
     $('#editBody').append("<p>D:" + exams[ei].qaList[qi].optionD + "</p>");
+    $('#editBody').append("<p><div id = 'clock'></div></p>");
   }
 }
 
@@ -888,8 +895,6 @@ function toMeg(){
       */
     </script>
 	  <script src="js/bootstrap-filestyle.min.js">
-
-
 </body>
 
 </html>
