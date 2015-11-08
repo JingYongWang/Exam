@@ -289,10 +289,10 @@
 
 
     <!--2015/11/03 Add by 王勁詠-->
-    <button type="button" class="btn btn-primary" onclick = "option(this)" id = "optionA">1</button>
-    <button type="button" class="btn btn-success"onclick = "option(this)" id = "optionB">2</button>
-    <button type="button" class="btn btn-info"onclick = "option(this)" id = "optionC">3</button>
-    <button type="button" class="btn btn-warning"onclick = "option(this)" id = "optionD">4</button>
+    <button type="button" class="btn btn-primary" onclick = "option(this)" id = "optionA">A</button>
+    <button type="button" class="btn btn-success"onclick = "option(this)" id = "optionB">B</button>
+    <button type="button" class="btn btn-info"onclick = "option(this)" id = "optionC">C</button>
+    <button type="button" class="btn btn-warning"onclick = "option(this)" id = "optionD">D</button>
     <div class = "col-sm-12">
     </div>
     </BR>
@@ -409,9 +409,9 @@ function option(userAns) {
   if (userAns.id == "optionA")
   {
     exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionA;
-  }else if (userAns.id == "optionA") {
+  }else if (userAns.id == "optionB") {
     exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionB;
-  }else if (true) {
+  }else if (userAns.id == "optionC") {
     exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionC;
   }else {
     exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionD;
@@ -420,8 +420,13 @@ function option(userAns) {
   qi++;
   if (qi == exams[ei].qaList.length)
   {
-    switchPanel('panelResult');
-    result();
+    $('#clock').countdown(0)
+     .on('finish.countdown', function(event){
+       var $this = $(this);
+       switchPanel('panelResult');
+       result();
+     });
+
   }else{
     $('#editBody').html(exams[ei].qaList[qi].q);
     /*2015/11/03 Add by 王勁詠*/
