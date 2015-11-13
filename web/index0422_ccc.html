@@ -248,31 +248,20 @@
 
 <div id="panelExam" class="container panel">
 <!--20151108 Add by 王勁詠-->
+
     <div class="page-header">
-            <h2>開始測驗
-              <span style="color:#336699" id="countMsg"></span>
-              <div id = "clock"></div>
-            </h2>
+
+        <h2 class="cok-sm-6">開始測驗
+          <div id = "clock"></div>
+        </h2>
+
+
 
     </div>
-<!--
-  <div class= "row">
-      <div class = "col-md-6">
-        <div>
-          <h1 class="alt-1">00:00:10</h1>
 
-		  <form>
-          <input type="button" value="開始計時" onClick = "time()">
-          </form>
 
-        </div>
-      </div>
-    </div>
-  -->
-  <!--
-  <span>答案:</span><input id="editTitle"  class = "input-group" type="text" value="">
-  -->
     <br/>
+
 	 <p class="lead">
 <!--20151108 remove by 王勁詠-->
 <!--
@@ -282,22 +271,24 @@
      題目
     </form>
 -->
+
       <span id="editBody"></span>
       <!--題目-->
-    </p>
+
+  </p>
 
 
 
     <!--2015/11/03 Add by 王勁詠-->
-    <button type="button" class="btn btn-primary" onclick = "option(this)" id = "optionA">A</button>
-    <button type="button" class="btn btn-success"onclick = "option(this)" id = "optionB">B</button>
-    <button type="button" class="btn btn-info"onclick = "option(this)" id = "optionC">C</button>
-    <button type="button" class="btn btn-warning"onclick = "option(this)" id = "optionD">D</button>
+    <button type="button" class="btn btn-default active" onclick = "option(this)" id = "optionA">A</button>
+    <button type="button" class="btn btn-default active" onclick = "option(this)" id = "optionB">B</button>
+    <button type="button" class="btn btn-default active" onclick = "option(this)" id = "optionC">C</button>
+    <button type="button" class="btn btn-default active" onclick = "option(this)" id = "optionD">D</button>
     </BR>
-    <button type="button" class="btn btn-default"onclick = "ExamOverTime(0)">結束考試</button>
+    <button type="button" class="btn btn-danger"onclick = "ExamOverTime(0)">結束考試</button>
     </BR>
-    <button type="button" class="btn btn-default"onclick = "option(this)" id = "previousQuestion">上一題</button>
-    <button type="button" class="btn btn-default"onclick = "option(this)" id = "nextQuestion">下一題</button>
+    <button type="button" class="btn btn-success"onclick = "option(this)" id = "previousQuestion">上一題</button>
+    <button type="button" class="btn btn-success"onclick = "option(this)" id = "nextQuestion">下一題</button>
     <div class = "col-sm-12">
     </div>
     </BR>
@@ -427,26 +418,40 @@
 function option(userValue) {
   //alert(userAns);
   //exams[ei].qaList[qi].userAnswer =  userAns; //創新的欄位
-
-
   /*2015/11/08 Add by 王勁詠*/
-  //判斷切題
+  //判斷切題 與選項答案
+
+  //var optionA,optionB,optionC,optionD; //Test
+  //var selected  = [qaList[qi] :[] ]; //Test
+
   switch(userValue.id){
     case "optionA":
       exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionA;
       qi++;
+      $("#selectA").css({
+        color: '#ebc000'
+      });
       break;
     case "optionB":
       exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionB;
       qi++;
+      $("#selectB").css({
+        color: '#ebc000'
+      });
       break;
     case "optionC":
       exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionC;
       qi++;
+      $("#selectC").css({
+        color: '#ebc000'
+      });
       break;
     case "optionD":
       exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionD;
       qi++;
+      $("#selectD").css({
+        color: '#ebc000'
+      });
       break;
     case "previousQuestion":
       if (qi == 0)
@@ -522,6 +527,7 @@ function option(userValue) {
         //Yes
       }else{
         //No
+        ExamOverTime(0);
         switchPanel('panelResult');
         result();
       }
@@ -778,16 +784,74 @@ function show(reportAmount){
     switchPanel('panelHistoryreport');
     $('#panelHistoryreport').empty();
     $('#panelHistoryreport').append("<h1>歷史報表</h1>");
-    $('#panelHistoryreport').append("<ol>");
 	  var correct = 0;
     var wrong = 0;
 
-    /*20151104 Add by 王勁詠*/
+
+
+    /*20151113 Add by 王勁詠*/
+    $('#panelHistoryreport').append('<div class="table-responsive"><table class="table table-hover"><thead><tr><th>' + "題目" + '</th><th>' + "你的答案" + '</th><th>' + "答題結果" + '</th><th>' + "正確答案" + '</th></tr></thead><tbody><tr id = "nullContentTop"><td></td><td></td><td></td><td></td></tr></tbody>');
+    $('#panelHistoryreport').find('#nullContentTop').css('background-color','#6E7273');
+
+    /*
+    $('#panelHistoryreport').append('<table class="table table-hover">');
+    $('#panelHistoryreport').append('<div class="table-responsive">');
+    $('#panelHistoryreport').append('<table class="table table-hover">');
+    $('#panelHistoryreport').append('<theah><tr>');
+    $('#panelHistoryreport').append('<th>' + "題目" + '</th>');
+    $('#panelHistoryreport').append('<th>' + "你的答案" + '</th>');
+    $('#panelHistoryreport').append('<th>' + "答題結果" + '</th>');
+    $('#panelHistoryreport').append('<th>' + "正確答案" + '</th>');
+    $('#panelHistoryreport').append('</tr></theah>');
+    $('#panelHistoryreport').append('<tbody><tr>');
+    */
+    for( i = 0 ; i <his[ra].report.qaList.length; i++ )
+    {
+      if(his[ra].report.qaList[i].userAnswer == his[ra].report.qaList[i].corrAns)
+            {
+              correct++;
+              $('#panelHistoryreport').find('tbody:last').after('<tbody><tr><td><button type="button" class="btn btn-default" onclick="showHistoryquestion('+i+')">看本題考題</button></td><td>' + his[ra].report.qaList[i].userAnswer + '</td><td>' + "Correct" + '</td></tr></tbody>');
+              //$('#panelHistoryreport').after('<td>' + his[ra].report.qaList[i].userAnswer + '</td>');
+              //$('#panelHistoryreport').after('<td>' + "Correct" + '</td></tr></tbody>');
+
+            }else{
+              wrong++;
+              $('#panelHistoryreport').find('tbody:last').after('<tbody><tr><td><button type="button" class="btn btn-default" onclick="showHistoryquestion('+i+')">看本題考題</button></td><td>' + his[ra].report.qaList[i].userAnswer + '</td><td>' + "Wrong" + '</td><td>'+ his[ra].report.qaList[i].corrAns + '</td></tr></tbody>');
+
+              //$('#panelHistoryreport').find('tbody:last').after('<td>' + his[ra].report.qaList[i].userAnswer + '</td>');
+              //$('#panelHistoryreport').find('tbody:last').after('<td>' + "Wrong" + '</td>');
+              //$('#panelHistoryreport').find('tbody:last').after('<td>'+ his[ra].report.qaList[i].corrAns + '</td></tr></tbody>');
+
+            }
+        if (i == his[ra].report.qaList.length - 1)
+        {
+          $('#panelHistoryreport').find('tbody:last').after('<tbody><tr id = "nullContentBottom"><td></td><td></td><td></td><td></td></tr></tbody>');
+          $('#panelHistoryreport').find('#nullContentBottom').css('background-color','#6E7273');
+        }
+    }
+    $('#panelHistoryreport').append('</tr></tbody>');
+
+
+    $('#panelHistoryreport').append('</table>');
+    $('#panelHistoryreport').append('</div>');
+
+    if(correct+wrong == his[ra].report.qaList.length)
+      {
+        onescore = 100/his[ra].report.qaList.length;
+        $('#panelHistoryreport').append("你答對"+correct+"題,答錯"+wrong+"題,總分："+correct*onescore+"分").css("font-size", "16pt");
+      }
+    $('#panelHistoryreport').append("<br/>");
+    $('#panelHistoryreport').append("<button type='button' class='btn btn-default' onclick='historyShow()'>返回歷史紀錄</button>");
+
+/*
     for(i = 0 ; i<his[ra].report.qaList.length; i++)
       {
         if(his[ra].report.qaList[i].userAnswer == his[ra].report.qaList[i].corrAns)
         {
           $('#panelHistoryreport').append("<li>你的答案："+his[ra].report.qaList[i].userAnswer+"; 答題結果：你答對了！</li>");
+
+
+
           correct++;
           $('#panelHistoryreport').append('<button type="button" class="btn btn-default" onclick="showHistoryquestion('+i+')">看本題考題</button>');
         }else {
@@ -803,32 +867,9 @@ function show(reportAmount){
       }
     $('#panelHistoryreport').append("<br/>");
     $('#panelHistoryreport').append("<button type='button' class='btn btn-default' onclick='historyShow()'>返回歷史紀錄</button>");
+*/
 
 
-    /*20151104 Add by 王勁詠 原本邏輯
-	  for(i =0; i<his[ra].report.qaList.length; i++)
-        {
-            if(his[ra].report.qaList[i].userAnswer == his[ra].report.qaList[i].a)
-                {
-                    $('#panelHistoryreport').append("<li>你的答案："+his[ra].report.qaList[i].userAnswer+"; 答題結果：你答對了！</li>");
-                    correct++;
-					$('#panelHistoryreport').append('<button type="button" class="btn btn-default" onclick="showHistoryquestion('+i+')">看本題考題</button>');
-                }else{
-                    $('#panelHistoryreport').append("<li>你的答案："+his[ra].report.qaList[i].userAnswer+"; 答題結果：你答錯了！, 正確答案："+his[ra].report.qaList[i].a+"</li>");
-                    wrong++;
-					$('#panelHistoryreport').append('<button type="button" class="btn btn-default" onclick="showHistoryquestion('+i+')">看本題考題</button>');
-                }
-        }
-        $('#panelHistoryreport').append("</ol>");
-		$('#panelHistoryreport').append("</br>");
-        if(correct+wrong == his[ra].report.qaList.length)
-        {
-           onescore = 100/his[ra].report.qaList.length;
-           $('#panelHistoryreport').append("你答對"+correct+"題,答錯"+wrong+"題,總分："+correct*onescore+"分");
-        }
-		$('#panelHistoryreport').append("<br/>");
-		$('#panelHistoryreport').append("<button type='button' class='btn btn-default' onclick='historyShow()'>返回歷史紀錄</button>");
-    */
   }
 
 
@@ -1011,7 +1052,7 @@ function toMeg(){
       });
       */
     </script>
-	  <script src="js/bootstrap-filestyle.min.js">
+	  <script src="js/bootstrap-filestyle.min.js"></script>
 </body>
 
 </html>
