@@ -585,9 +585,50 @@ function result(){  //考試系統的答案檢查，考試結果的報表
     var onescore;  //一題分數
 		$('#panelResult').empty();
 		$('#panelResult').append("<h1>報表</h1>");
-    $('#panelResult').append("<ol>");
+    /*20151114 Add by 王勁詠*/
+    $('#panelResult').append('<div class="table-responsive"><table class="table table-hover"><thead><tr><th>' + "題目" + '</th><th>' + "你的答案" + '</th><th>' + "答題結果" + '</th><th>' + "正確答案" + '</th></tr></thead><tbody><tr id = "resultNullContentTop"><td></td><td></td><td></td><td></td></tr></tbody>');
+    $('#panelResult').find('#resultNullContentTop').css('background-color','#6E7273');
 
-    /*20151104 Add by 王勁詠*/
+    for( i = 0 ; i < exams[ei].qaList.length ; i++)
+    {
+      if(exams[ei].qaList[i].userAnswer == exams[ei].qaList[i].corrAns)
+            {
+              correct++;
+              $('#panelResult').find('tbody:last').after('<tbody><tr><td><button type="button" class="btn btn-default" onclick="showHistoryquestion('+i+')">看本題考題</button></td><td>' + exams[ei].qaList[i].userAnswer + '</td><td>' + "Correct" + '</td></tr></tbody>');
+              //$('#panelHistoryreport').after('<td>' + his[ra].report.qaList[i].userAnswer + '</td>');
+              //$('#panelHistoryreport').after('<td>' + "Correct" + '</td></tr></tbody>');
+
+            }else{
+              wrong++;
+              $('#panelResult').find('tbody:last').after('<tbody><tr><td><button type="button" class="btn btn-default" onclick="showHistoryquestion('+i+')">看本題考題</button></td><td>' + exams[ei].qaList[i].userAnswer + '</td><td>' + "Wrong" + '</td><td>'+ exams[ei].qaList[i].corrAns + '</td></tr></tbody>');
+
+              //$('#panelHistoryreport').find('tbody:last').after('<td>' + his[ra].report.qaList[i].userAnswer + '</td>');
+              //$('#panelHistoryreport').find('tbody:last').after('<td>' + "Wrong" + '</td>');
+              //$('#panelHistoryreport').find('tbody:last').after('<td>'+ his[ra].report.qaList[i].corrAns + '</td></tr></tbody>');
+
+            }
+
+        if (i ==  exams[ei].qaList.length - 1)
+        {
+          $('#panelResult').find('tbody:last').after('<tbody><tr id = "resultNullContentBottom"><td></td><td></td><td></td><td></td></tr></tbody>');
+          $('#panelResult').find('#resultNullContentBottom').css('background-color','#6E7273');
+        }
+    }
+          $('#panelResult').append('</tr></tbody>');
+
+
+          $('#panelResult').append('</table>');
+          $('#panelResult').append('</div>');
+/*
+          if(correct+wrong == his[ra].report.qaList.length)
+            {
+              onescore = 100/his[ra].report.qaList.length;
+              $('#panelResult').append("你答對"+correct+"題,答錯"+wrong+"題,總分："+correct*onescore+"分").css("font-size", "16pt");
+            }
+          $('#panelResult').append("<br/>");
+          $('#panelResult').append("<button type='button' class='btn btn-default' onclick='historyShow()'>返回歷史紀錄</button>");
+*/
+    /*20151104 Add by 王勁詠 1114 修改邏輯
     for(  i = 0 ; i < exams[ei].qaList.length ; i++)
     {
         if(exams[ei].qaList[i].userAnswer == exams[ei].qaList[i].corrAns)
@@ -604,10 +645,11 @@ function result(){  //考試系統的答案檢查，考試結果的報表
         $('#panelResult').append("</ol>");
         $('#panelResult').append("</br>");
     }
+    */
     if(correct+wrong == exams[ei].qaList.length)
     {
        onescore = 100/exams[ei].qaList.length;
-       $('#panelResult').append("你答對"+correct+"題,答錯"+wrong+"題,總分："+correct*onescore+"分");
+       $('#panelResult').append("你答對"+correct+"題,答錯"+wrong+"題,總分："+correct*onescore+"分").css("font-size", "16pt");;
        if(correct*onescore == 0)
           alertify.alert("看的到這個提示訊息代表...  你連一題都沒答對，0分。");
         else if (correct*onescore == 100) {
@@ -942,7 +984,7 @@ function show(reportAmount){
 	function returnHistoryreport() {
 	   switchPanel('panelHistoryreport');
 	}
-
+  /*After Exam sho your question*/
 	function showQuestion(qai) {
 	    var i = qai;
 	    switchPanel('panelQuestion');
