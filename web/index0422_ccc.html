@@ -967,13 +967,12 @@ function show(reportAmount){
       $('#panelHistoryquestion').append("<h1>歷史題目</h1>");
       $('#panelHistoryquestion').append("<ol>");
       /*20151104 Add by 王勁詠*/
-      $('#panelHistoryquestion').append("<li>題目："+his[ra].report.qaList[i].q);
+      $('#panelHistoryquestion').append("題目："+his[ra].report.qaList[i].q).css("font-size", "16pt");
       $('#panelHistoryquestion').append("<p>A:" + his[ra].report.qaList[i].optionA + "</p>");
       $('#panelHistoryquestion').append("<p>B:" + his[ra].report.qaList[i].optionB + "</p>");
       $('#panelHistoryquestion').append("<p>C:" + his[ra].report.qaList[i].optionC+ "</p>");
       $('#panelHistoryquestion').append("<p>D:" + his[ra].report.qaList[i].optionD + "</p>");
-      $('#panelHistoryquestion').append("</li>");
-      $('#panelHistoryquestion').append("</ol>");
+
       $('#panelHistoryquestion').append('<button type="button" class="btn btn-default" onclick="returnHistoryreport()">返回歷史報表</button>');
 	}
 
