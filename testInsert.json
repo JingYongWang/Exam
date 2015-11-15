@@ -1,0 +1,22 @@
+{ "exam" : "TesrJson2" , "qaList" :
+[
+  {
+    "q" : "'Happy New Year' has __ word?",
+    "optionA" : "10",
+    "optionB" : "15",
+    "optionC" : "9",
+    "optionD" : "12",
+    "corrAns" : "12"
+  },
+  {
+    "q" : "'How Are You' has __ word?",
+    "optionA" : "9",
+    "optionB" : "10",
+    "optionC" : "12",
+    "optionD" : "15",
+    "corrAns" : "9"
+  }
+]
+,
+  "time" : 30
+}

@@ -23,7 +23,7 @@ db.examdb.insert()
   }
 ]
 ,
-  "time" : "30"
+  "time" : 30
 }
 
 

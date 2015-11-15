@@ -201,12 +201,28 @@
           <input type="file" id="filebox" name="filebox" class="filestyle" data-classButton="btn btn-primary" data-input="false" data-classIcon="icon-plus" data-buttonText="自訂考題"/>
 </div>
 <textarea id="jsonText" class="form-control" rows="23">
-    {"exam" : "math", "qaList" :    [
-                                               { "q" : "1+2?(1)4(2)3(3)4(4)5",
-                                                 "a" : "2" },
-                                               { "q" : "3+4?(1)5(2)6(3)7(4)8",
-                                                 "a" : "3" }
-                                               ]}
+  { "exam" : "EnglishTest" , "qaList" :
+  [
+    {
+      "q" : "'hello world' has __ word?",
+      "optionA" : "3",
+      "optionB" : "5",
+      "optionC" : "7",
+      "optionD" : "10",
+      "corrAns" : "10"
+    },
+    {
+      "q" : "'Handsome boy' has __ word?",
+      "optionA" : "15",
+      "optionB" : "10",
+      "optionC" : "11",
+      "optionD" : "12",
+      "corrAns" : "11"
+    }
+  ]
+  ,
+    "time" : 60000
+  }
     </textarea>
   <table style="float:right; line-height: 30px; font-size:13px; padding-right: 5px;">
   <tr>
@@ -594,13 +610,13 @@ function result(){  //考試系統的答案檢查，考試結果的報表
       if(exams[ei].qaList[i].userAnswer == exams[ei].qaList[i].corrAns)
             {
               correct++;
-              $('#panelResult').find('tbody:last').after('<tbody><tr><td><button type="button" class="btn btn-default" onclick="showHistoryquestion('+i+')">看本題考題</button></td><td>' + exams[ei].qaList[i].userAnswer + '</td><td>' + "Correct" + '</td></tr></tbody>');
+              $('#panelResult').find('tbody:last').after('<tbody><tr><td><button type="button" class="btn btn-default" onclick="showQuestion('+i+')">看本題考題</button></td><td>' + exams[ei].qaList[i].userAnswer + '</td><td>' + "Correct" + '</td></tr></tbody>');
               //$('#panelHistoryreport').after('<td>' + his[ra].report.qaList[i].userAnswer + '</td>');
               //$('#panelHistoryreport').after('<td>' + "Correct" + '</td></tr></tbody>');
 
             }else{
               wrong++;
-              $('#panelResult').find('tbody:last').after('<tbody><tr><td><button type="button" class="btn btn-default" onclick="showHistoryquestion('+i+')">看本題考題</button></td><td>' + exams[ei].qaList[i].userAnswer + '</td><td>' + "Wrong" + '</td><td>'+ exams[ei].qaList[i].corrAns + '</td></tr></tbody>');
+              $('#panelResult').find('tbody:last').after('<tbody><tr><td><button type="button" class="btn btn-default" onclick="showQuestion('+i+')">看本題考題</button></td><td>' + exams[ei].qaList[i].userAnswer + '</td><td>' + "Wrong" + '</td><td>'+ exams[ei].qaList[i].corrAns + '</td></tr></tbody>');
 
               //$('#panelHistoryreport').find('tbody:last').after('<td>' + his[ra].report.qaList[i].userAnswer + '</td>');
               //$('#panelHistoryreport').find('tbody:last').after('<td>' + "Wrong" + '</td>');
@@ -649,7 +665,7 @@ function result(){  //考試系統的答案檢查，考試結果的報表
     if(correct+wrong == exams[ei].qaList.length)
     {
        onescore = 100/exams[ei].qaList.length;
-       $('#panelResult').append("你答對"+correct+"題,答錯"+wrong+"題,總分："+correct*onescore+"分").css("font-size", "16pt");;
+       $('#panelResult').append("你答對"+correct+"題,答錯"+wrong+"題,總分："+correct*onescore+"分").css("font-size", "16pt");
        if(correct*onescore == 0)
           alertify.alert("看的到這個提示訊息代表...  你連一題都沒答對，0分。");
         else if (correct*onescore == 100) {
@@ -990,15 +1006,14 @@ function show(reportAmount){
 	    switchPanel('panelQuestion');
       $('#panelQuestion').empty();
       $('#panelQuestion').append("<h1>題目</h1>");
-      $('#panelQuestion').append("<ol>");
-      $('#panelQuestion').append("<li>題目："+exams[ei].qaList[i].q);
+
+      $('#panelQuestion').append("題目："+exams[ei].qaList[i].q).css("font-size", "16pt");
       /*20151104 Add by 王勁詠*/
-      $('#panelQuestion').append("<p>A:" + exams[ei].qaList[i].optionA + "</p>");
-      $('#panelQuestion').append("<p>B:" + exams[ei].qaList[i].optionB + "</p>");
-      $('#panelQuestion').append("<p>C:" + exams[ei].qaList[i].optionC+ "</p>");
-      $('#panelQuestion').append("<p>D:" + exams[ei].qaList[i].optionD + "</p>");
-      $('#panelQuestion').append("</li>");
-      $('#panelQuestion').append("</ol>");
+      $('#panelQuestion').append("<p>A:" + exams[ei].qaList[i].optionA + "</p>").css("font-size", "16pt");
+      $('#panelQuestion').append("<p>B:" + exams[ei].qaList[i].optionB + "</p>").css("font-size", "16pt");
+      $('#panelQuestion').append("<p>C:" + exams[ei].qaList[i].optionC+ "</p>").css("font-size", "16pt");
+      $('#panelQuestion').append("<p>D:" + exams[ei].qaList[i].optionD + "</p>").css("font-size", "16pt");
+
       $('#panelQuestion').append('<button type="button" class="btn btn-default" onclick="returnResult()">返回報表</button>');
 }
 
@@ -1007,13 +1022,12 @@ function show(reportAmount){
 	    switchPanel('panelHistoryquestion');
       $('#panelHistoryquestion').empty();
       $('#panelHistoryquestion').append("<h1>歷史題目</h1>");
-      $('#panelHistoryquestion').append("<ol>");
       /*20151104 Add by 王勁詠*/
       $('#panelHistoryquestion').append("題目："+his[ra].report.qaList[i].q).css("font-size", "16pt");
-      $('#panelHistoryquestion').append("<p>A:" + his[ra].report.qaList[i].optionA + "</p>");
-      $('#panelHistoryquestion').append("<p>B:" + his[ra].report.qaList[i].optionB + "</p>");
-      $('#panelHistoryquestion').append("<p>C:" + his[ra].report.qaList[i].optionC+ "</p>");
-      $('#panelHistoryquestion').append("<p>D:" + his[ra].report.qaList[i].optionD + "</p>");
+      $('#panelHistoryquestion').append("<p>A:" + his[ra].report.qaList[i].optionA + "</p>").css("font-size", "16pt");
+      $('#panelHistoryquestion').append("<p>B:" + his[ra].report.qaList[i].optionB + "</p>").css("font-size", "16pt");
+      $('#panelHistoryquestion').append("<p>C:" + his[ra].report.qaList[i].optionC+ "</p>").css("font-size", "16pt");
+      $('#panelHistoryquestion').append("<p>D:" + his[ra].report.qaList[i].optionD + "</p>").css("font-size", "16pt");
 
       $('#panelHistoryquestion').append('<button type="button" class="btn btn-default" onclick="returnHistoryreport()">返回歷史報表</button>');
 	}
