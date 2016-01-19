@@ -29,7 +29,6 @@
         text-align: center;
         padding: 20px;
     }
-
     #nav {
         line-height: 30px;
         height: 500px;
@@ -37,14 +36,12 @@
         float: left;
         padding: 20px;
     }
-
     #section {
         height: 500px;
         width: 350px;
         float: left;
         padding: 20px;
     }
-
     #footer {
         background-color: black;
         color: white;
@@ -52,7 +49,6 @@
         text-align: center;
         padding: 10px;
     }
-
 	* { margin: 0; padding: 0; box-sizing: border-box; }
       body {font: 13px Helvetica, Arial; }
       #form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
@@ -61,8 +57,6 @@
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
-
-
  	img {
      border: 1px solid #373737;
      margin-right: auto;
@@ -327,62 +321,48 @@
 	*/
 	var jsonText = document.getElementById("jsonText");
   var filebox = document.getElementById("filebox");
-
 	function fileboxChange(evt) {
     var reader = new FileReader();
     reader.onload = function(e) {
      jsonText.value = reader.result;
      save();
     };
-
      filename = evt.target.files[0].name;
      reader.readAsText(evt.target.files[0]);
     }
-
 	filebox.addEventListener('change', fileboxChange, false);
-
-
 	function switchPanel(name) {
      $('.panel').css( "display", "none");
      $('#'+name).css( "display", "block");
     }
-
 	function jump() {
 	registerUser.value = "";
 	registerPassword.value = "";
 	registerJob.value = "";
 	switchPanel('panelRegister');
 	}
-
   function init() {
   switchPanel('panelHome');
   }
-
 	var noteID;
   var qi;
-  var ExamLength;
-  var UserAnsRecord;
-
-
   function exam(examIdx) {
-    ei = examIdx;
-    qi=0;
-
-    $('#editBody').empty();
-    switchPanel('panelExam');
-    //$('#panelExam').append("<p><div id = 'clock'></div></p>");
-    $('#editBody').append(exams[ei].qaList[qi].q);
-    /*2015/11/03 Add by 王勁詠*/
-    $('#editBody').append("<p>A:" + exams[ei].qaList[qi].optionA + "</p>");
-    $('#editBody').append("<p>B:" + exams[ei].qaList[qi].optionB + "</p>");
-    $('#editBody').append("<p>C:" + exams[ei].qaList[qi].optionC+ "</p>");
-    $('#editBody').append("<p>D:" + exams[ei].qaList[qi].optionD + "</p>");
-
-    //$('#editBody').append("<p><div id = 'clock'></div></p>");
-    //var dbTime = new Date().getTime() + exams[ei].time;
-    /*20151108 add by 王勁詠*/
-    var dbTime = new Date().getTime() + exams[ei].time;
-    ExamOverTime(dbTime)
+  	 ei = examIdx;
+  	 qi=0;
+     $('#editBody').empty();
+     switchPanel('panelExam');
+     //$('#panelExam').append("<p><div id = 'clock'></div></p>");
+  	 $('#editBody').append(exams[ei].qaList[qi].q);
+     /*2015/11/03 Add by 王勁詠*/
+     $('#editBody').append("<p>A:" + exams[ei].qaList[qi].optionA + "</p>");
+     $('#editBody').append("<p>B:" + exams[ei].qaList[qi].optionB + "</p>");
+     $('#editBody').append("<p>C:" + exams[ei].qaList[qi].optionC+ "</p>");
+     $('#editBody').append("<p>D:" + exams[ei].qaList[qi].optionD + "</p>");
+     //$('#editBody').append("<p><div id = 'clock'></div></p>");
+     //var dbTime = new Date().getTime() + exams[ei].time;
+     /*20151108 add by 王勁詠*/
+     var dbTime = new Date().getTime() + exams[ei].time;
+     ExamOverTime(dbTime)
      /*
      $('#clock').countdown(dbTime)
       .on('update.countdown',function (event) {
@@ -398,7 +378,6 @@
     }
     /*20151108 Add by 王勁詠 考試時間設定*/
     function ExamOverTime(dbTime) {
-
       //var dbTime = new Date().getTime() + exams[ei].time;
       $('#clock').countdown(dbTime)
        .on('update.countdown',function (event) {
@@ -411,7 +390,6 @@
          result();
        });
     }
-
 	var examId;
 	var ei;
   /*
@@ -424,46 +402,50 @@
         result();
 	  }	else {
 	    $('#editBody').html(exams[ei].qaList[qi].q);
-
       $('#editBody').append("<p>A:" + exams[ei].qaList[qi].optionA + "</p>");
       $('#editBody').append("<p>B:" + exams[ei].qaList[qi].optionB + "</p>");
       $('#editBody').append("<p>C:" + exams[ei].qaList[qi].optionC+ "</p>");
       $('#editBody').append("<p>D:" + exams[ei].qaList[qi].optionD + "</p>");
-
 	  }
 	  //editTitle.value = "";
 	}
   */
-
-
   /*2015/11/03 Add by 王勁詠*/
 function option(userValue) {
   //alert(userAns);
   //exams[ei].qaList[qi].userAnswer =  userAns; //創新的欄位
   /*2015/11/08 Add by 王勁詠*/
   //判斷切題 與選項答案
-
   //var optionA,optionB,optionC,optionD; //Test
   //var selected  = [qaList[qi] :[] ]; //Test
-
-
-
   switch(userValue.id){
     case "optionA":
       exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionA;
       qi++;
+      $("#selectA").css({
+        color: '#ebc000'
+      });
       break;
     case "optionB":
       exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionB;
       qi++;
+      $("#selectB").css({
+        color: '#ebc000'
+      });
       break;
     case "optionC":
       exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionC;
       qi++;
+      $("#selectC").css({
+        color: '#ebc000'
+      });
       break;
     case "optionD":
       exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionD;
       qi++;
+      $("#selectD").css({
+        color: '#ebc000'
+      });
       break;
     case "previousQuestion":
       if (qi == 0)
@@ -484,7 +466,6 @@ function option(userValue) {
     default:
         qi++;
   }
-
   /*
   if (userValue.id == "optionA")
   {
@@ -502,21 +483,17 @@ function option(userValue) {
   else if (userValue.id == "optionD"){
     exams[ei].qaList[qi].userAnswer = exams[ei].qaList[qi].optionD;
     qi++;
-
   //判斷切題
   }else if(userValue.id == "previousQuestion")
   {
-
     if (qi == 0)
     {
       alertify.alert("沒有上一題囉,請按下一題");
     }else {
       qi--;
     }
-
   }
   else if (userValue.id = "nextQuestion") {
-
     if (qi == exams[ei].qaList.length)
     {
       alertify.alert("這是最後一題囉!");
@@ -562,8 +539,6 @@ function option(userValue) {
     $('#editBody').append("<p><div id = 'clock'></div></p>");
   }
 }
-
-
 	var exams; // 考場:包含考試名稱與試題內容
 	var userExam = { answer:[] }; // 使用者這次考試的答題內容
     //選擇考場的界線
@@ -589,8 +564,6 @@ function list() {
     //$('#panelList').append("</ol>");
     });
 	}
-
-
 function result(){  //考試系統的答案檢查，考試結果的報表
     var correct = 0;
     var wrong = 0;
@@ -600,7 +573,6 @@ function result(){  //考試系統的答案檢查，考試結果的報表
     /*20151114 Add by 王勁詠*/
     $('#panelResult').append('<div class="table-responsive"><table class="table table-hover"><thead><tr><th>' + "題目" + '</th><th>' + "你的答案" + '</th><th>' + "答題結果" + '</th><th>' + "正確答案" + '</th></tr></thead><tbody><tr id = "resultNullContentTop"><td></td><td></td><td></td><td></td></tr></tbody>');
     $('#panelResult').find('#resultNullContentTop').css('background-color','#6E7273');
-
     for( i = 0 ; i < exams[ei].qaList.length ; i++)
     {
       if(exams[ei].qaList[i].userAnswer == exams[ei].qaList[i].corrAns)
@@ -609,17 +581,13 @@ function result(){  //考試系統的答案檢查，考試結果的報表
               $('#panelResult').find('tbody:last').after('<tbody><tr><td><button type="button" class="btn btn-default" onclick="showQuestion('+i+')">看本題考題</button></td><td>' + exams[ei].qaList[i].userAnswer + '</td><td>' + "Correct" + '</td></tr></tbody>');
               //$('#panelHistoryreport').after('<td>' + his[ra].report.qaList[i].userAnswer + '</td>');
               //$('#panelHistoryreport').after('<td>' + "Correct" + '</td></tr></tbody>');
-
             }else{
               wrong++;
               $('#panelResult').find('tbody:last').after('<tbody><tr><td><button type="button" class="btn btn-default" onclick="showQuestion('+i+')">看本題考題</button></td><td>' + exams[ei].qaList[i].userAnswer + '</td><td>' + "Wrong" + '</td><td>'+ exams[ei].qaList[i].corrAns + '</td></tr></tbody>');
-
               //$('#panelHistoryreport').find('tbody:last').after('<td>' + his[ra].report.qaList[i].userAnswer + '</td>');
               //$('#panelHistoryreport').find('tbody:last').after('<td>' + "Wrong" + '</td>');
               //$('#panelHistoryreport').find('tbody:last').after('<td>'+ his[ra].report.qaList[i].corrAns + '</td></tr></tbody>');
-
             }
-
         if (i ==  exams[ei].qaList.length - 1)
         {
           $('#panelResult').find('tbody:last').after('<tbody><tr id = "resultNullContentBottom"><td></td><td></td><td></td><td></td></tr></tbody>');
@@ -627,8 +595,6 @@ function result(){  //考試系統的答案檢查，考試結果的報表
         }
     }
           $('#panelResult').append('</tr></tbody>');
-
-
           $('#panelResult').append('</table>');
           $('#panelResult').append('</div>');
 /*
@@ -671,7 +637,6 @@ function result(){  //考試系統的答案檢查，考試結果的報表
     $('#panelResult').append("<br/>")
     $('#panelResult').append("<button type='button' class='btn btn-default' onclick='report()'>送出報表</button>");
     $('#panelResult').append("<button type='button' class='btn btn-default' onclick='list()'>重新考試</button>");
-
       /*20151104 Add by 王勁詠  原本邏輯
     for(i =0; i<exams[ei].qaList.length; i++)
         {
@@ -698,7 +663,6 @@ function result(){  //考試系統的答案檢查，考試結果的報表
 		$('#panelResult').append("<button type='button' class='btn btn-default' onclick='list()'>重新考試</button>");
     */
     }
-
 	//這是管理者
 	function check()
 	 {
@@ -706,13 +670,10 @@ function result(){  //考試系統的答案檢查，考試結果的報表
 	   var jobj = JSON.parse(jText);
        if (typeof jobj === undefined)
         alertify.alert("Error");
-
 	   else
 	       alertify.alert("Correct");
-
 	   console.log("jobj="+JSON.stringify(jobj));
 	 }
-
 	 function send()
 	 {
 	   var jText = $('#jsonText').val();
@@ -733,11 +694,9 @@ function result(){  //考試系統的答案檢查，考試結果的報表
       .fail(function() {
        alertify.alert("送出失敗");
      });
-
 	 }
 	//登入
 	var Message;
-
 	function login() {
     $.ajax({
     type: "POST",
@@ -785,7 +744,6 @@ function result(){  //考試系統的答案檢查，考試結果的報表
 	   switchPanel('panelHome');
      });
 	}
-
 	function logout() {
       $.ajax({
       type: "POST",
@@ -813,7 +771,6 @@ function result(){  //考試系統的答案檢查，考試結果的報表
       alertify.alert("登出失敗");
      });
     }
-
 	function report(){
 	  var userInput = $('#loginUser').val();
 	  var rt = exams[ei];
@@ -830,10 +787,8 @@ function result(){  //考試系統的答案檢查，考試結果的報表
       alertify.alert("報表送出失敗");
      });
 	}
-
 	var his;
 	var ra;
-
 function show(reportAmount){
     ra = reportAmount;
     switchPanel('panelHistoryreport');
@@ -841,13 +796,9 @@ function show(reportAmount){
     $('#panelHistoryreport').append("<h1>歷史報表</h1>");
 	  var correct = 0;
     var wrong = 0;
-
-
-
     /*20151113 Add by 王勁詠*/
     $('#panelHistoryreport').append('<div class="table-responsive"><table class="table table-hover"><thead><tr><th>' + "題目" + '</th><th>' + "你的答案" + '</th><th>' + "答題結果" + '</th><th>' + "正確答案" + '</th></tr></thead><tbody><tr id = "nullContentTop"><td></td><td></td><td></td><td></td></tr></tbody>');
     $('#panelHistoryreport').find('#nullContentTop').css('background-color','#6E7273');
-
     /*
     $('#panelHistoryreport').append('<table class="table table-hover">');
     $('#panelHistoryreport').append('<div class="table-responsive">');
@@ -868,15 +819,12 @@ function show(reportAmount){
               $('#panelHistoryreport').find('tbody:last').after('<tbody><tr><td><button type="button" class="btn btn-default" onclick="showHistoryquestion('+i+')">看本題考題</button></td><td>' + his[ra].report.qaList[i].userAnswer + '</td><td>' + "Correct" + '</td></tr></tbody>');
               //$('#panelHistoryreport').after('<td>' + his[ra].report.qaList[i].userAnswer + '</td>');
               //$('#panelHistoryreport').after('<td>' + "Correct" + '</td></tr></tbody>');
-
             }else{
               wrong++;
               $('#panelHistoryreport').find('tbody:last').after('<tbody><tr><td><button type="button" class="btn btn-default" onclick="showHistoryquestion('+i+')">看本題考題</button></td><td>' + his[ra].report.qaList[i].userAnswer + '</td><td>' + "Wrong" + '</td><td>'+ his[ra].report.qaList[i].corrAns + '</td></tr></tbody>');
-
               //$('#panelHistoryreport').find('tbody:last').after('<td>' + his[ra].report.qaList[i].userAnswer + '</td>');
               //$('#panelHistoryreport').find('tbody:last').after('<td>' + "Wrong" + '</td>');
               //$('#panelHistoryreport').find('tbody:last').after('<td>'+ his[ra].report.qaList[i].corrAns + '</td></tr></tbody>');
-
             }
         if (i == his[ra].report.qaList.length - 1)
         {
@@ -885,11 +833,8 @@ function show(reportAmount){
         }
     }
     $('#panelHistoryreport').append('</tr></tbody>');
-
-
     $('#panelHistoryreport').append('</table>');
     $('#panelHistoryreport').append('</div>');
-
     if(correct+wrong == his[ra].report.qaList.length)
       {
         onescore = 100/his[ra].report.qaList.length;
@@ -897,16 +842,12 @@ function show(reportAmount){
       }
     $('#panelHistoryreport').append("<br/>");
     $('#panelHistoryreport').append("<button type='button' class='btn btn-default' onclick='historyShow()'>返回歷史紀錄</button>");
-
 /*
     for(i = 0 ; i<his[ra].report.qaList.length; i++)
       {
         if(his[ra].report.qaList[i].userAnswer == his[ra].report.qaList[i].corrAns)
         {
           $('#panelHistoryreport').append("<li>你的答案："+his[ra].report.qaList[i].userAnswer+"; 答題結果：你答對了！</li>");
-
-
-
           correct++;
           $('#panelHistoryreport').append('<button type="button" class="btn btn-default" onclick="showHistoryquestion('+i+')">看本題考題</button>');
         }else {
@@ -923,28 +864,19 @@ function show(reportAmount){
     $('#panelHistoryreport').append("<br/>");
     $('#panelHistoryreport').append("<button type='button' class='btn btn-default' onclick='historyShow()'>返回歷史紀錄</button>");
 */
-
-
   }
-
-
-
 	function historyShow(){
 	  switchPanel('panelHistory');
 	  $('#panelHistory').empty();
 	  $('#panelHistory').append("<h1>歷史紀錄</h1>");
     $('#panelHistory').append("<button type='button' class='btn btn-default' onclick='list()'>開始考試</button>");
 	  $('#panelHistory').append("<button type='button' class='btn btn-default' onclick='toMeg()'>開始搶答</button>");
-
-
     for(var i in his){
       //$('#panelHistory').append('<div class="jumbotron"><p class="lead"><li><a href="javascript:show('+i+')">'+his[i].report.exam+"</a></li></p>");
       $('#panelHistory').append('<table class = "table table-hover"><tr><td class = "warning" type = "button" ><a href = "javascript:show('+i+')">'+his[i].report.exam+"</a></td></tr></table>");
-
      }
     //$('#panelHistory').append("</div>");
 	}
-
 	function history(){
 	  var userhistory = $('#loginUser').val();
 	  $.ajax({
@@ -962,7 +894,6 @@ function show(reportAmount){
       alertify.alert("沒有收到歷史成績");
      });
 	}
-
 	function register(){
 	  var registerUser = $('#registerUser').val();
 	  var registerPassword = $('#registerPassword').val();
@@ -981,19 +912,15 @@ function show(reportAmount){
       alertify.alert("註冊失敗");
      });
 	}
-
     function reset() {
 	    exam();
     }
-
 	function returnHome() {
 	   switchPanel('panelHome');
 	}
-
 	function returnResult() {
 	   switchPanel('panelResult');
 	}
-
 	function returnHistoryreport() {
 	   switchPanel('panelHistoryreport');
 	}
@@ -1003,17 +930,14 @@ function show(reportAmount){
 	    switchPanel('panelQuestion');
       $('#panelQuestion').empty();
       $('#panelQuestion').append("<h1>題目</h1>");
-
       $('#panelQuestion').append("題目："+exams[ei].qaList[i].q).css("font-size", "16pt");
       /*20151104 Add by 王勁詠*/
       $('#panelQuestion').append("<p>A:" + exams[ei].qaList[i].optionA + "</p>").css("font-size", "16pt");
       $('#panelQuestion').append("<p>B:" + exams[ei].qaList[i].optionB + "</p>").css("font-size", "16pt");
       $('#panelQuestion').append("<p>C:" + exams[ei].qaList[i].optionC+ "</p>").css("font-size", "16pt");
       $('#panelQuestion').append("<p>D:" + exams[ei].qaList[i].optionD + "</p>").css("font-size", "16pt");
-
       $('#panelQuestion').append('<button type="button" class="btn btn-default" onclick="returnResult()">返回報表</button>');
 }
-
 	function showHistoryquestion(hqai){
 	    var i = hqai;
 	    switchPanel('panelHistoryquestion');
@@ -1025,17 +949,13 @@ function show(reportAmount){
       $('#panelHistoryquestion').append("<p>B:" + his[ra].report.qaList[i].optionB + "</p>").css("font-size", "16pt");
       $('#panelHistoryquestion').append("<p>C:" + his[ra].report.qaList[i].optionC+ "</p>").css("font-size", "16pt");
       $('#panelHistoryquestion').append("<p>D:" + his[ra].report.qaList[i].optionD + "</p>").css("font-size", "16pt");
-
       $('#panelHistoryquestion').append('<button type="button" class="btn btn-default" onclick="returnHistoryreport()">返回歷史報表</button>');
 	}
-
 	function nextPage(){
 	    switchPanel('panelResult');
 		result();
 	}
-
 	var t;
-
 	function time()
   {
     //t=setTimeout("nextPage()",10000);
@@ -1058,13 +978,9 @@ function show(reportAmount){
     $('#panelExam').append("<h1 class='alt-1'>00:00:10</h1>");
     */
     }
-
-
-
 function toMeg(){
 	   switchPanel("panelMessage");
 	}
-
 	var socket = io();
       $('form').submit(function(){
 	    var message = $('#loginUser').val()+":"+$('#m').val();
